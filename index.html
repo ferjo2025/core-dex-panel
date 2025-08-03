@@ -20,7 +20,7 @@
     }
 
     body {
-      margin: 0; 
+      margin: 0;
       background: var(--color-bg);
       font-family: var(--font-family);
       color: var(--color-text);
@@ -34,54 +34,131 @@
     .container {
       width: 100%;
       max-width: 420px;
-      background: var(--color-card-bg);
+      background: linear-gradient(145deg, #1e222a, #232834);
       border-radius: var(--radius);
       padding: 24px;
       box-shadow: 0 0 15px rgba(79, 70, 229, 0.3);
       display: flex;
       flex-direction: column;
       gap: 20px;
+      opacity: 0;
+      animation: fadeIn 0.8s forwards;
+    }
+
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
     }
 
     header {
+      background: linear-gradient(to right, #4f46e5 0%, #8b94ff 100%);
+      padding: 16px;
+      border-radius: var(--radius);
+      color: white;
       display: flex;
-      flex-direction: column;
-      gap: 8px;
-      border-bottom: 1px solid #2a2e3b;
-      padding-bottom: 16px;
+      align-items: center;
+      gap: 10px;
+      user-select: none;
     }
 
     header h1 {
       margin: 0;
       font-weight: 700;
-      font-size: 24px;
-      letter-spacing: 1.5px;
+      font-size: 22px;
+      letter-spacing: 1px;
+    }
+
+    /* Pulso animado en círculo verde del logo */
+    .pulse-green {
+      animation: pulse 2.5s infinite;
+      transform-origin: center;
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        r: 1.5;
+        opacity: 1;
+      }
+      50% {
+        r: 2.5;
+        opacity: 0.6;
+      }
     }
 
     .wallet-address {
       display: flex;
+      flex-direction: column;
       align-items: center;
-      gap: 12px;
-      font-family: monospace;
+      gap: 8px;
       font-size: 14px;
       color: var(--color-secondary);
       user-select: all;
+      word-break: break-word;
+      text-align: center;
+    }
+
+    /* Tooltip container */
+    .tooltip {
+      position: relative;
+      cursor: help;
+      border-bottom: 1px dotted var(--color-text-muted);
+    }
+    .tooltip:hover::after {
+      content: attr(data-tooltip);
+      position: absolute;
+      bottom: 125%;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: var(--color-primary);
+      color: white;
+      padding: 6px 10px;
+      border-radius: 8px;
+      white-space: nowrap;
+      font-size: 12px;
+      box-shadow: 0 0 10px rgba(79, 70, 229, 0.6);
+      opacity: 1;
+      pointer-events: auto;
+      z-index: 10;
+    }
+    .tooltip::after {
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
     }
 
     .copy-button {
+      position: relative;
       background: var(--color-primary);
       border: none;
       color: white;
-      padding: 6px 12px;
+      padding: 8px 14px;
       border-radius: 8px;
       cursor: pointer;
       font-weight: 600;
-      font-size: 12px;
-      transition: background 0.3s ease;
+      font-size: 13px;
+      transition: background 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 0 8px rgba(79, 70, 229, 0.4);
+      user-select: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      justify-content: center;
     }
 
     .copy-button:hover {
       background: var(--color-accent);
+      box-shadow: 0 0 15px var(--color-accent);
+    }
+
+    .copy-button:active {
+      animation: clickConfirm 0.5s forwards;
+    }
+
+    @keyframes clickConfirm {
+      0% { box-shadow: 0 0 15px var(--color-accent); }
+      50% { box-shadow: 0 0 30px #10f39d; }
+      100% { box-shadow: none; }
     }
 
     section.stats {
@@ -99,11 +176,13 @@
       align-items: center;
       box-shadow: inset 0 0 6px rgba(255, 255, 255, 0.05);
       cursor: default;
-      transition: box-shadow 0.3s ease;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      user-select: none;
     }
 
     .card:hover {
-      box-shadow: inset 0 0 12px rgba(79, 70, 229, 0.7);
+      transform: translateY(-6px) scale(1.05);
+      box-shadow: inset 0 0 15px rgba(79, 70, 229, 0.9);
     }
 
     .card .label {
@@ -125,6 +204,7 @@
       border-radius: var(--radius);
       padding: 16px;
       box-shadow: 0 0 12px rgba(79, 70, 229, 0.3);
+      user-select: none;
     }
 
     section.gains h2 {
@@ -165,6 +245,7 @@
       color: var(--color-text-muted);
       box-shadow: inset 0 0 8px rgba(255,255,255,0.05);
       white-space: pre-wrap;
+      user-select: text;
     }
 
     button#btnExit {
@@ -179,35 +260,50 @@
       margin-top: 10px;
       transition: background 0.3s ease;
       width: 100%;
+      user-select: none;
     }
 
     button#btnExit:hover {
       background: var(--color-accent);
     }
-
   </style>
 </head>
 <body>
 
   <div class="container">
     <header>
-      <h1>👛 Core DeX Wallet</h1>
-      <div class="wallet-address" id="walletAddress">
-        Dirección wallet
-        <button class="copy-button" id="copyBtn">Copiar</button>
-      </div>
+      <!-- Logo wallet conect -->
+      <svg
+        width="28"
+        height="28"
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        style="vertical-align: middle;"
+      >
+        <rect x="2" y="7" width="20" height="10" rx="2" ry="2" stroke="#8b94ff" stroke-width="2" />
+        <path d="M6 12h12" stroke="#4f46e5" stroke-width="2" stroke-linecap="round" />
+        <circle cx="18" cy="12" r="1.5" fill="#10b981" class="pulse-green" />
+        <path d="M10 11v2" stroke="#10b981" stroke-width="2" stroke-linecap="round" />
+      </svg>
+      <h1>Core DeX Wallet</h1>
     </header>
 
+    <div class="wallet-address">
+      <div id="walletOnly" class="tooltip" data-tooltip="Haz clic para copiar la dirección">Dirección wallet</div>
+      <button class="copy-button" id="copyBtn">🔗 Compartir Wallet</button>
+    </div>
+
     <section class="stats">
-      <div class="card">
+      <div class="card tooltip" data-tooltip="Monto total invertido">
         <div class="label">Invertido</div>
         <div class="value" id="invertido">--</div>
       </div>
-      <div class="card">
+      <div class="card tooltip" data-tooltip="Monto total retirado">
         <div class="label">Retirado</div>
         <div class="value" id="retirado">--</div>
       </div>
-      <div class="card">
+      <div class="card tooltip" data-tooltip="Monto pendiente por retirar">
         <div class="label">Pendiente</div>
         <div class="value" id="pendiente">--</div>
       </div>
@@ -216,13 +312,13 @@
     <section class="gains">
       <h2>Ganancias</h2>
       <ul>
-        <li>Semanal <span id="gananciasSem">--</span></li>
-        <li>Referidos <span id="gananciasRef">--</span></li>
-        <li>Bono admin <span id="bonoAdmin">--</span></li>
+        <li class="tooltip" data-tooltip="Ganancias de esta semana">Semanal <span id="gananciasSem">--</span></li>
+        <li class="tooltip" data-tooltip="Ganancias por referidos">Referidos <span id="gananciasRef">--</span></li>
+        <li class="tooltip" data-tooltip="Bono administrativo">Bono admin <span id="bonoAdmin">--</span></li>
       </ul>
     </section>
 
-    <section class="history" id="historial">
+    <section class="history" id="historial" title="Historial de ganancias acumuladas">
       Historial de ganancias acumuladas...
     </section>
 
@@ -254,9 +350,9 @@
     const bonoAdmin = getParameterByName('bonoAdmin') || "--";
     const historial = getParameterByName('historial') || "No hay historial.";
 
-    // Mostrar wallet y copiar dirección
-    const walletAddressEl = document.getElementById('walletAddress');
-    walletAddressEl.firstChild.textContent = wallet;
+    // Mostrar wallet
+    const walletEl = document.getElementById("walletOnly");
+    walletEl.textContent = wallet;
 
     document.getElementById('invertido').textContent = invertido + " USDT";
     document.getElementById('retirado').textContent = retirado + " USDT";
@@ -268,26 +364,28 @@
 
     document.getElementById('historial').textContent = historial;
 
-    // Copiar wallet al portapapeles
-    document.getElementById('copyBtn').addEventListener('click', () => {
+    // Copiar wallet al portapapeles (también si haces click en la dirección)
+    function copyWallet() {
       navigator.clipboard.writeText(wallet).then(() => {
-        alert("Dirección wallet copiada al portapapeles.");
+        const btn = document.getElementById('copyBtn');
+        btn.textContent = '✅ Copiado';
+        setTimeout(() => {
+          btn.textContent = '🔗 Compartir Wallet';
+        }, 1500);
       }).catch(() => {
         alert("Error al copiar la dirección.");
       });
-    });
+    }
+
+    document.getElementById('copyBtn').addEventListener('click', copyWallet);
+    walletEl.addEventListener('click', copyWallet);
 
     // Botón salir cierra la Mini App
     document.getElementById('btnExit').addEventListener('click', () => {
       tg.close();
     });
 
-    // Expande la ventana Mini App para que sea más cómoda
     tg.expand();
   </script>
-
 </body>
 </html>
-
-</html>
-
