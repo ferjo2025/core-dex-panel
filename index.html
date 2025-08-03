@@ -35,23 +35,36 @@
       box-sizing: border-box; /* Para que padding y border entren en el tamaño */
     }
 
-    /* === HEADER CENTRADO Y MODERNO === */
-    .header-center {
-      background: linear-gradient(90deg, #1e222a, #232834); /* Fondo con degradado horizontal */
-      padding: 20px 0; /* Espaciado arriba y abajo */
-      box-shadow: 0 0 12px rgba(79, 70, 229, 0.7); /* Sombra exterior violeta suave */
+    /* === CONTENEDOR PRINCIPAL DE LA WALLET === */
+    .container {
+      width: 100%;
+      max-width: 420px; /* Máximo ancho para móvil y desktop */
+      background: linear-gradient(145deg, #1e222a, #232834); /* Degradado oscuro */
       border-radius: var(--radius); /* Bordes redondeados */
-      user-select: none; /* Impide seleccionar el texto */
-      display: flex; /* Flexbox para centrar contenido */
-      justify-content: center; /* Centrar horizontalmente */
-      margin-bottom: 24px; /* Separación abajo */
+      padding: 24px; /* Espacio interno */
+      box-shadow: 0 0 15px rgba(79, 70, 229, 0.3); /* Sombra suave */
+      display: flex;
+      flex-direction: column;
+      gap: 20px; /* Espaciado entre secciones */
+      opacity: 0; /* Empezamos invisible para animación */
+      animation: fadeIn 0.8s forwards; /* Aparece suavemente */
     }
 
-    /* Contenedor que agrupa logo y título */
+    /* Animación para que el contenedor aparezca */
+    @keyframes fadeIn {
+      to {
+        opacity: 1;
+      }
+    }
+
+    /* === BLOQUE DEL LOGO Y TÍTULO CENTRADOS DENTRO DEL CONTAINER === */
     .logo-title {
       display: flex; /* Contenido en fila */
       align-items: center; /* Alineación vertical centrada */
       gap: 14px; /* Espacio entre logo y texto */
+      justify-content: center; /* Centramos horizontalmente */
+      user-select: none; /* No seleccionable */
+      margin-bottom: 12px; /* Espacio debajo para separar de la wallet */
     }
 
     /* Estilos para el logo SVG */
@@ -60,6 +73,8 @@
       filter: drop-shadow(0 0 4px #8b94ff88); /* Sombra exterior azul translúcida */
       animation: pulseLogoShadow 3s infinite ease-in-out; /* Animación de pulso */
       vertical-align: middle; /* Alineación vertical */
+      width: 36px;
+      height: 36px;
     }
 
     /* Animación para que la sombra del logo pulse suavemente */
@@ -82,6 +97,7 @@
       position: relative;
       letter-spacing: 1.2px; /* Espacio entre letras */
       margin: 0; /* Sin margen */
+      user-select: none;
     }
 
     /* Estilos para la versión "3.0" al lado del título */
@@ -106,28 +122,6 @@
       }
       50% {
         box-shadow: 0 0 22px #10f39dcc;
-      }
-    }
-
-    /* === CONTENEDOR PRINCIPAL DE LA WALLET === */
-    .container {
-      width: 100%;
-      max-width: 420px; /* Máximo ancho para móvil y desktop */
-      background: linear-gradient(145deg, #1e222a, #232834); /* Degradado oscuro */
-      border-radius: var(--radius); /* Bordes redondeados */
-      padding: 24px; /* Espacio interno */
-      box-shadow: 0 0 15px rgba(79, 70, 229, 0.3); /* Sombra suave */
-      display: flex;
-      flex-direction: column;
-      gap: 20px; /* Espaciado entre secciones */
-      opacity: 0; /* Empezamos invisible para animación */
-      animation: fadeIn 0.8s forwards; /* Aparece suavemente */
-    }
-
-    /* Animación para que el contenedor aparezca */
-    @keyframes fadeIn {
-      to {
-        opacity: 1;
       }
     }
 
@@ -349,8 +343,10 @@
 </head>
 <body>
 
-  <!-- HEADER CON LOGO Y TÍTULO CENTRADO -->
-  <div class="header-center">
+  <!-- CONTENEDOR PRINCIPAL CON TODO EL CONTENIDO -->
+  <div class="container">
+
+    <!-- BLOQUE NUEVO: LOGO Y TÍTULO CENTRADOS -->
     <div class="logo-title">
       <!-- Logo wallet connect SVG -->
       <svg
@@ -362,26 +358,17 @@
         class="logo-svg"
         aria-label="Logo Wallet Connect"
       >
-        <!-- Rectángulo con esquinas redondeadas -->
         <rect x="2" y="7" width="20" height="10" rx="2" ry="2" stroke="#8b94ff" stroke-width="2" />
-        <!-- Línea horizontal central -->
         <path d="M6 12h12" stroke="#4f46e5" stroke-width="2" stroke-linecap="round" />
-        <!-- Círculo verde pulsante -->
         <circle cx="18" cy="12" r="1.5" fill="#10b981" class="pulse-green" />
-        <!-- Línea vertical verde -->
         <path d="M10 11v2" stroke="#10b981" stroke-width="2" stroke-linecap="round" />
       </svg>
 
-      <!-- Título y versión -->
       <h1>
         Core DeX Wallet
         <span class="version">3.0</span>
       </h1>
     </div>
-  </div>
-
-  <!-- CONTENEDOR PRINCIPAL -->
-  <div class="container">
 
     <!-- Dirección de wallet, clickeable para copiar -->
     <div class="wallet-address" id="walletOnly" title="Haz clic para copiar la dirección">
@@ -496,3 +483,4 @@
 
 </body>
 </html>
+
