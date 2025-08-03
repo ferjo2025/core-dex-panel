@@ -3,114 +3,162 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Core DeX Wallet</title>
+  <title>Core DeX Wallet 3.0</title>
+
+  <!-- Importamos la fuente "Space Grotesk" desde Google Fonts -->
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&display=swap');
 
+    /* Variables CSS para colores, fuentes y tamaños */
     :root {
-      --color-bg: #0f1217;
-      --color-card-bg: #1e222a;
-      --color-primary: #4f46e5;
-      --color-secondary: #8b94ff;
-      --color-accent: #10b981;
-      --color-text: #e0e6f0;
-      --color-text-muted: #a0aec0;
-      --radius: 12px;
-      --font-family: 'Space Grotesk', sans-serif;
+      --color-bg: #0f1217; /* Fondo oscuro general */
+      --color-card-bg: #1e222a; /* Fondo de tarjetas y contenedores */
+      --color-primary: #4f46e5; /* Color principal azul */
+      --color-secondary: #8b94ff; /* Azul más claro para texto secundario */
+      --color-accent: #10b981; /* Color verde para acentos y botones */
+      --color-text: #e0e6f0; /* Color principal del texto */
+      --color-text-muted: #a0aec0; /* Texto gris para subtítulos y descripciones */
+      --radius: 12px; /* Bordes redondeados */
+      --font-family: 'Space Grotesk', sans-serif; /* Fuente principal */
     }
 
+    /* Estilos básicos para todo el cuerpo del documento */
     body {
-      margin: 0;
-      background: var(--color-bg);
-      font-family: var(--font-family);
-      color: var(--color-text);
-      display: flex;
+      margin: 0; /* Quitamos margen por defecto */
+      background: var(--color-bg); /* Fondo oscuro */
+      font-family: var(--font-family); /* Fuente de texto */
+      color: var(--color-text); /* Color del texto principal */
+      display: flex; /* Usamos flexbox para centrar vertical y horizontalmente */
       justify-content: center;
-      padding: 16px;
-      min-height: 100vh;
-      box-sizing: border-box;
+      padding: 16px; /* Padding para separación */
+      min-height: 100vh; /* Que ocupe toda la altura de la ventana */
+      box-sizing: border-box; /* Para que padding y border entren en el tamaño */
     }
 
+    /* === HEADER CENTRADO Y MODERNO === */
+    .header-center {
+      background: linear-gradient(90deg, #1e222a, #232834); /* Fondo con degradado horizontal */
+      padding: 20px 0; /* Espaciado arriba y abajo */
+      box-shadow: 0 0 12px rgba(79, 70, 229, 0.7); /* Sombra exterior violeta suave */
+      border-radius: var(--radius); /* Bordes redondeados */
+      user-select: none; /* Impide seleccionar el texto */
+      display: flex; /* Flexbox para centrar contenido */
+      justify-content: center; /* Centrar horizontalmente */
+      margin-bottom: 24px; /* Separación abajo */
+    }
+
+    /* Contenedor que agrupa logo y título */
+    .logo-title {
+      display: flex; /* Contenido en fila */
+      align-items: center; /* Alineación vertical centrada */
+      gap: 14px; /* Espacio entre logo y texto */
+    }
+
+    /* Estilos para el logo SVG */
+    .logo-svg {
+      stroke-width: 2.5; /* Grosor de líneas SVG */
+      filter: drop-shadow(0 0 4px #8b94ff88); /* Sombra exterior azul translúcida */
+      animation: pulseLogoShadow 3s infinite ease-in-out; /* Animación de pulso */
+      vertical-align: middle; /* Alineación vertical */
+    }
+
+    /* Animación para que la sombra del logo pulse suavemente */
+    @keyframes pulseLogoShadow {
+      0%, 100% {
+        filter: drop-shadow(0 0 4px #8b94ff88);
+      }
+      50% {
+        filter: drop-shadow(0 0 8px #a3aaffcc);
+      }
+    }
+
+    /* Estilos para el título principal */
+    h1 {
+      font-weight: 900; /* Muy negrita */
+      font-size: 28px; /* Tamaño grande */
+      background: linear-gradient(90deg, #8b94ff, #4f46e5); /* Degradado para el texto */
+      -webkit-background-clip: text; /* Recorta el background solo al texto */
+      -webkit-text-fill-color: transparent; /* Hace el texto transparente para ver el degradado */
+      position: relative;
+      letter-spacing: 1.2px; /* Espacio entre letras */
+      margin: 0; /* Sin margen */
+    }
+
+    /* Estilos para la versión "3.0" al lado del título */
+    .version {
+      background: var(--color-accent); /* Fondo verde */
+      font-size: 14px; /* Texto pequeño */
+      font-weight: 700; /* Negrita */
+      color: white; /* Texto blanco */
+      padding: 4px 10px; /* Padding para hacer un pill */
+      border-radius: 20px; /* Bordes redondeados tipo píldora */
+      margin-left: 12px; /* Separación con el título */
+      box-shadow: 0 0 12px var(--color-accent); /* Brillo verde */
+      user-select: none; /* No seleccionable */
+      vertical-align: middle;
+      animation: pulseVersion 2.5s infinite; /* Animación de brillo */
+    }
+
+    /* Animación para el brillo pulsante de la versión */
+    @keyframes pulseVersion {
+      0%, 100% {
+        box-shadow: 0 0 12px var(--color-accent);
+      }
+      50% {
+        box-shadow: 0 0 22px #10f39dcc;
+      }
+    }
+
+    /* === CONTENEDOR PRINCIPAL DE LA WALLET === */
     .container {
       width: 100%;
-      max-width: 420px;
-      background: linear-gradient(145deg, #1e222a, #232834);
-      border-radius: var(--radius);
-      padding: 24px;
-      box-shadow: 0 0 15px rgba(79, 70, 229, 0.3);
+      max-width: 420px; /* Máximo ancho para móvil y desktop */
+      background: linear-gradient(145deg, #1e222a, #232834); /* Degradado oscuro */
+      border-radius: var(--radius); /* Bordes redondeados */
+      padding: 24px; /* Espacio interno */
+      box-shadow: 0 0 15px rgba(79, 70, 229, 0.3); /* Sombra suave */
       display: flex;
       flex-direction: column;
-      gap: 20px;
-      opacity: 0;
-      animation: fadeIn 0.8s forwards;
+      gap: 20px; /* Espaciado entre secciones */
+      opacity: 0; /* Empezamos invisible para animación */
+      animation: fadeIn 0.8s forwards; /* Aparece suavemente */
     }
 
+    /* Animación para que el contenedor aparezca */
     @keyframes fadeIn {
       to {
         opacity: 1;
       }
     }
 
-    header {
-      background: linear-gradient(to right, #4f46e5 0%, #8b94ff 100%);
-      padding: 16px;
-      border-radius: var(--radius);
-      color: white;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      user-select: none;
-    }
-
-    header h1 {
-      margin: 0;
-      font-weight: 700;
-      font-size: 22px;
-      letter-spacing: 1px;
-    }
-
-    /* Pulso animado en círculo verde del logo */
-    .pulse-green {
-      animation: pulse 2.5s infinite;
-      transform-origin: center;
-    }
-
-    @keyframes pulse {
-      0%, 100% {
-        r: 1.5;
-        opacity: 1;
-      }
-      50% {
-        r: 2.5;
-        opacity: 0.6;
-      }
-    }
-
+    /* === DIRECCIÓN DE WALLET Y BOTÓN DE COPIAR === */
     .wallet-address {
       display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 8px;
-      font-size: 14px;
-      color: var(--color-secondary);
-      user-select: all;
-      word-break: break-word;
-      text-align: center;
+      flex-direction: column; /* En columna */
+      align-items: center; /* Centrado horizontal */
+      gap: 8px; /* Espacio entre dirección y botón */
+      font-size: 14px; /* Tamaño de texto */
+      color: var(--color-secondary); /* Color azul claro */
+      user-select: all; /* Permite seleccionar texto fácilmente */
+      word-break: break-word; /* Permite romper texto largo */
+      text-align: center; /* Centrado texto */
+      cursor: pointer; /* Cursor pointer al pasar */
     }
 
-    /* Tooltip container */
+    /* Tooltip para dar información extra cuando se pasa el mouse */
     .tooltip {
       position: relative;
-      cursor: help;
-      border-bottom: 1px dotted var(--color-text-muted);
+      cursor: help; /* Cursor de ayuda */
+      border-bottom: 1px dotted var(--color-text-muted); /* Línea punteada debajo */
     }
+    /* Contenido del tooltip que aparece al pasar el mouse */
     .tooltip:hover::after {
-      content: attr(data-tooltip);
+      content: attr(data-tooltip); /* Toma el texto del atributo data-tooltip */
       position: absolute;
-      bottom: 125%;
-      left: 50%;
+      bottom: 125%; /* Se muestra arriba del elemento */
+      left: 50%; /* Centrado horizontal */
       transform: translateX(-50%);
-      background-color: var(--color-primary);
+      background-color: var(--color-primary); /* Fondo azul */
       color: white;
       padding: 6px 10px;
       border-radius: 8px;
@@ -121,15 +169,17 @@
       pointer-events: auto;
       z-index: 10;
     }
+    /* El tooltip está oculto por defecto */
     .tooltip::after {
       opacity: 0;
       pointer-events: none;
       transition: opacity 0.3s ease;
     }
 
+    /* Botón para copiar o compartir la wallet */
     .copy-button {
       position: relative;
-      background: var(--color-primary);
+      background: var(--color-primary); /* Fondo azul fuerte */
       border: none;
       color: white;
       padding: 8px 14px;
@@ -139,18 +189,22 @@
       font-size: 13px;
       transition: background 0.3s ease, box-shadow 0.3s ease;
       box-shadow: 0 0 8px rgba(79, 70, 229, 0.4);
-      user-select: none;
+      user-select: none; /* No permite seleccionar texto */
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 6px; /* Espacio entre ícono y texto */
       justify-content: center;
+      width: fit-content;
+      margin: 0 auto; /* Centrar horizontalmente */
     }
 
+    /* Cambio de color y sombra al pasar el mouse */
     .copy-button:hover {
-      background: var(--color-accent);
+      background: var(--color-accent); /* Verde */
       box-shadow: 0 0 15px var(--color-accent);
     }
 
+    /* Animación al hacer clic para dar feedback */
     .copy-button:active {
       animation: clickConfirm 0.5s forwards;
     }
@@ -161,30 +215,33 @@
       100% { box-shadow: none; }
     }
 
+    /* === TARJETAS ESTADÍSTICAS === */
     section.stats {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
+      grid-template-columns: repeat(3, 1fr); /* 3 columnas iguales */
+      gap: 16px; /* Espacio entre tarjetas */
     }
 
     .card {
-      background: #272c3a;
+      background: #272c3a; /* Fondo oscuro */
       border-radius: var(--radius);
       padding: 16px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      box-shadow: inset 0 0 6px rgba(255, 255, 255, 0.05);
-      cursor: default;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      user-select: none;
+      box-shadow: inset 0 0 6px rgba(255, 255, 255, 0.05); /* Sombra interior sutil */
+      cursor: default; /* Cursor normal */
+      transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transición suave */
+      user-select: none; /* No seleccionable */
     }
 
+    /* Efecto hover que levanta y escala la tarjeta */
     .card:hover {
       transform: translateY(-6px) scale(1.05);
       box-shadow: inset 0 0 15px rgba(79, 70, 229, 0.9);
     }
 
+    /* Etiqueta de cada tarjeta */
     .card .label {
       font-size: 13px;
       color: var(--color-text-muted);
@@ -193,12 +250,14 @@
       letter-spacing: 0.05em;
     }
 
+    /* Valor destacado en cada tarjeta */
     .card .value {
       font-size: 18px;
       font-weight: 700;
       color: var(--color-text);
     }
 
+    /* === SECCIÓN DE GANANCIAS === */
     section.gains {
       background: var(--color-card-bg);
       border-radius: var(--radius);
@@ -235,19 +294,21 @@
       color: var(--color-text-muted);
     }
 
+    /* === HISTORIAL === */
     section.history {
       background: var(--color-card-bg);
       border-radius: var(--radius);
       padding: 16px;
       max-height: 120px;
-      overflow-y: auto;
+      overflow-y: auto; /* Scroll vertical si hay mucho texto */
       font-size: 14px;
       color: var(--color-text-muted);
       box-shadow: inset 0 0 8px rgba(255,255,255,0.05);
-      white-space: pre-wrap;
-      user-select: text;
+      white-space: pre-wrap; /* Que respete saltos de línea */
+      user-select: text; /* Permite seleccionar texto */
     }
 
+    /* === BOTÓN SALIR === */
     button#btnExit {
       background: var(--color-primary);
       border: none;
@@ -266,34 +327,71 @@
     button#btnExit:hover {
       background: var(--color-accent);
     }
+
+    /* === PULSO VERDE CÍRCULO LOGO === */
+    .pulse-green {
+      animation: pulse 2.5s infinite;
+      transform-origin: center;
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        r: 1.5;
+        opacity: 1;
+      }
+      50% {
+        r: 2.5;
+        opacity: 0.6;
+      }
+    }
+
   </style>
 </head>
 <body>
 
-  <div class="container">
-    <header>
-      <!-- Logo wallet conect -->
+  <!-- HEADER CON LOGO Y TÍTULO CENTRADO -->
+  <div class="header-center">
+    <div class="logo-title">
+      <!-- Logo wallet connect SVG -->
       <svg
-        width="28"
-        height="28"
+        width="36"
+        height="36"
         viewBox="0 0 24 24"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        style="vertical-align: middle;"
+        class="logo-svg"
+        aria-label="Logo Wallet Connect"
       >
+        <!-- Rectángulo con esquinas redondeadas -->
         <rect x="2" y="7" width="20" height="10" rx="2" ry="2" stroke="#8b94ff" stroke-width="2" />
+        <!-- Línea horizontal central -->
         <path d="M6 12h12" stroke="#4f46e5" stroke-width="2" stroke-linecap="round" />
+        <!-- Círculo verde pulsante -->
         <circle cx="18" cy="12" r="1.5" fill="#10b981" class="pulse-green" />
+        <!-- Línea vertical verde -->
         <path d="M10 11v2" stroke="#10b981" stroke-width="2" stroke-linecap="round" />
       </svg>
-      <h1>Core DeX Wallet</h1>
-    </header>
 
-    <div class="wallet-address">
-      <div id="walletOnly" class="tooltip" data-tooltip="Haz clic para copiar la dirección">Dirección wallet</div>
-      <button class="copy-button" id="copyBtn">🔗 Compartir Wallet</button>
+      <!-- Título y versión -->
+      <h1>
+        Core DeX Wallet
+        <span class="version">3.0</span>
+      </h1>
+    </div>
+  </div>
+
+  <!-- CONTENEDOR PRINCIPAL -->
+  <div class="container">
+
+    <!-- Dirección de wallet, clickeable para copiar -->
+    <div class="wallet-address" id="walletOnly" title="Haz clic para copiar la dirección">
+      Dirección wallet
     </div>
 
+    <!-- Botón para copiar y compartir la wallet -->
+    <button class="copy-button" id="copyBtn">🔗 Compartir Wallet</button>
+
+    <!-- Estadísticas principales -->
     <section class="stats">
       <div class="card tooltip" data-tooltip="Monto total invertido">
         <div class="label">Invertido</div>
@@ -309,6 +407,7 @@
       </div>
     </section>
 
+    <!-- Ganancias detalladas -->
     <section class="gains">
       <h2>Ganancias</h2>
       <ul>
@@ -318,20 +417,24 @@
       </ul>
     </section>
 
+    <!-- Historial de ganancias -->
     <section class="history" id="historial" title="Historial de ganancias acumuladas">
       Historial de ganancias acumuladas...
     </section>
 
+    <!-- Botón para salir de la wallet -->
     <button id="btnExit">Salir de la Wallet</button>
   </div>
 
+  <!-- Script de integración con Telegram Mini App -->
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <script>
     const tg = window.Telegram.WebApp;
 
+    // Función para obtener parámetros de la URL
     function getParameterByName(name) {
       const url = window.location.href;
-      name = name.replace(/[\[\]]/g, '\\$&');
+      name = name.replace(/[\[\]]/g, '\\$&'); // Escapa caracteres especiales
       const regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)');
       const results = regex.exec(url);
       if (!results) return null;
@@ -339,7 +442,7 @@
       return decodeURIComponent(results[2].replace(/\+/g, ' '));
     }
 
-    // Cargar datos desde URL
+    // Obtenemos datos de la URL o ponemos valores por defecto
     const nombre = getParameterByName('nombre') || "Usuario";
     const wallet = getParameterByName('wallet') || "No asignada";
     const invertido = getParameterByName('invertido') || "--";
@@ -350,10 +453,11 @@
     const bonoAdmin = getParameterByName('bonoAdmin') || "--";
     const historial = getParameterByName('historial') || "No hay historial.";
 
-    // Mostrar wallet
+    // Mostramos la wallet en la página
     const walletEl = document.getElementById("walletOnly");
     walletEl.textContent = wallet;
 
+    // Asignamos los valores a sus campos correspondientes
     document.getElementById('invertido').textContent = invertido + " USDT";
     document.getElementById('retirado').textContent = retirado + " USDT";
     document.getElementById('pendiente').textContent = pendiente + " USDT";
@@ -364,11 +468,11 @@
 
     document.getElementById('historial').textContent = historial;
 
-    // Copiar wallet al portapapeles (también si haces click en la dirección)
+    // Función para copiar la wallet al portapapeles
     function copyWallet() {
       navigator.clipboard.writeText(wallet).then(() => {
         const btn = document.getElementById('copyBtn');
-        btn.textContent = '✅ Copiado';
+        btn.textContent = '✅ Copiado'; // Feedback visual
         setTimeout(() => {
           btn.textContent = '🔗 Compartir Wallet';
         }, 1500);
@@ -377,15 +481,18 @@
       });
     }
 
+    // Añadimos evento click al botón y al texto de la wallet para copiarla
     document.getElementById('copyBtn').addEventListener('click', copyWallet);
     walletEl.addEventListener('click', copyWallet);
 
-    // Botón salir cierra la Mini App
+    // Botón salir cierra la Mini App de Telegram
     document.getElementById('btnExit').addEventListener('click', () => {
       tg.close();
     });
 
+    // Expandimos la ventana de la Mini App al cargar
     tg.expand();
   </script>
+
 </body>
 </html>
