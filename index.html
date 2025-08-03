@@ -1,62 +1,293 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <title>Panel Core DeX</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Core DeX Wallet</title>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&display=swap');
+
+    :root {
+      --color-bg: #0f1217;
+      --color-card-bg: #1e222a;
+      --color-primary: #4f46e5;
+      --color-secondary: #8b94ff;
+      --color-accent: #10b981;
+      --color-text: #e0e6f0;
+      --color-text-muted: #a0aec0;
+      --radius: 12px;
+      --font-family: 'Space Grotesk', sans-serif;
+    }
+
     body {
-      font-family: sans-serif;
-      background-color: #111;
-      color: #fff;
-      margin: 0;
-      padding: 20px;
+      margin: 0; 
+      background: var(--color-bg);
+      font-family: var(--font-family);
+      color: var(--color-text);
+      display: flex;
+      justify-content: center;
+      padding: 16px;
+      min-height: 100vh;
+      box-sizing: border-box;
     }
+
     .container {
-      max-width: 400px;
-      margin: auto;
-      background: #1c1c1c;
-      border-radius: 16px;
-      padding: 20px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.5);
+      width: 100%;
+      max-width: 420px;
+      background: var(--color-card-bg);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: 0 0 15px rgba(79, 70, 229, 0.3);
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
     }
-    h1 {
-      text-align: center;
-      font-size: 22px;
+
+    header {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      border-bottom: 1px solid #2a2e3b;
+      padding-bottom: 16px;
     }
-    .info {
-      margin-top: 20px;
+
+    header h1 {
+      margin: 0;
+      font-weight: 700;
+      font-size: 24px;
+      letter-spacing: 1.5px;
     }
-    .info p {
-      margin: 8px 0;
+
+    .wallet-address {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-family: monospace;
+      font-size: 14px;
+      color: var(--color-secondary);
+      user-select: all;
     }
+
+    .copy-button {
+      background: var(--color-primary);
+      border: none;
+      color: white;
+      padding: 6px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 12px;
+      transition: background 0.3s ease;
+    }
+
+    .copy-button:hover {
+      background: var(--color-accent);
+    }
+
+    section.stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .card {
+      background: #272c3a;
+      border-radius: var(--radius);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      box-shadow: inset 0 0 6px rgba(255, 255, 255, 0.05);
+      cursor: default;
+      transition: box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+      box-shadow: inset 0 0 12px rgba(79, 70, 229, 0.7);
+    }
+
+    .card .label {
+      font-size: 13px;
+      color: var(--color-text-muted);
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .card .value {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--color-text);
+    }
+
+    section.gains {
+      background: var(--color-card-bg);
+      border-radius: var(--radius);
+      padding: 16px;
+      box-shadow: 0 0 12px rgba(79, 70, 229, 0.3);
+    }
+
+    section.gains h2 {
+      margin: 0 0 12px 0;
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      color: var(--color-primary);
+    }
+
+    section.gains ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    section.gains li {
+      font-size: 16px;
+      margin-bottom: 8px;
+      color: var(--color-text);
+      display: flex;
+      justify-content: space-between;
+      font-weight: 600;
+    }
+
+    section.gains li span {
+      font-weight: 400;
+      color: var(--color-text-muted);
+    }
+
+    section.history {
+      background: var(--color-card-bg);
+      border-radius: var(--radius);
+      padding: 16px;
+      max-height: 120px;
+      overflow-y: auto;
+      font-size: 14px;
+      color: var(--color-text-muted);
+      box-shadow: inset 0 0 8px rgba(255,255,255,0.05);
+      white-space: pre-wrap;
+    }
+
+    button#btnExit {
+      background: var(--color-primary);
+      border: none;
+      color: white;
+      padding: 14px;
+      border-radius: var(--radius);
+      font-size: 18px;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: background 0.3s ease;
+      width: 100%;
+    }
+
+    button#btnExit:hover {
+      background: var(--color-accent);
+    }
+
   </style>
 </head>
 <body>
+
   <div class="container">
-    <h1>👤 Tu Panel Core DeX</h1>
-    <div class="info">
-      <p><strong>Usuario:</strong> <span id="user"></span></p>
-      <p><strong>Capital activo:</strong> ₡150,000</p>
-      <p><strong>Ganancia esta semana:</strong> ₡8,500</p>
-      <p><strong>Estado:</strong> ✅ Activo</p>
-    </div>
+    <header>
+      <h1>👛 Core DeX Wallet</h1>
+      <div class="wallet-address" id="walletAddress">
+        Dirección wallet
+        <button class="copy-button" id="copyBtn">Copiar</button>
+      </div>
+    </header>
+
+    <section class="stats">
+      <div class="card">
+        <div class="label">Invertido</div>
+        <div class="value" id="invertido">--</div>
+      </div>
+      <div class="card">
+        <div class="label">Retirado</div>
+        <div class="value" id="retirado">--</div>
+      </div>
+      <div class="card">
+        <div class="label">Pendiente</div>
+        <div class="value" id="pendiente">--</div>
+      </div>
+    </section>
+
+    <section class="gains">
+      <h2>Ganancias</h2>
+      <ul>
+        <li>Semanal <span id="gananciasSem">--</span></li>
+        <li>Referidos <span id="gananciasRef">--</span></li>
+        <li>Bono admin <span id="bonoAdmin">--</span></li>
+      </ul>
+    </section>
+
+    <section class="history" id="historial">
+      Historial de ganancias acumuladas...
+    </section>
+
+    <button id="btnExit">Salir de la Wallet</button>
   </div>
 
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <script>
     const tg = window.Telegram.WebApp;
-    const userEl = document.getElementById("user");
 
-    tg.ready();
-    const user = tg.initDataUnsafe?.user;
-    if (user) {
-      userEl.innerText = `${user.first_name} ${user.last_name || ''}`;
-    } else {
-      userEl.innerText = "Desconocido";
+    function getParameterByName(name) {
+      const url = window.location.href;
+      name = name.replace(/[\[\]]/g, '\\$&');
+      const regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)');
+      const results = regex.exec(url);
+      if (!results) return null;
+      if (!results[2]) return '';
+      return decodeURIComponent(results[2].replace(/\+/g, ' '));
     }
 
-    tg.expand(); // Expande la ventana al máximo
+    // Cargar datos desde URL
+    const nombre = getParameterByName('nombre') || "Usuario";
+    const wallet = getParameterByName('wallet') || "No asignada";
+    const invertido = getParameterByName('invertido') || "--";
+    const retirado = getParameterByName('retirado') || "--";
+    const pendiente = getParameterByName('pendiente') || "--";
+    const gananciasSem = getParameterByName('gananciasSem') || "--";
+    const gananciasRef = getParameterByName('gananciasRef') || "--";
+    const bonoAdmin = getParameterByName('bonoAdmin') || "--";
+    const historial = getParameterByName('historial') || "No hay historial.";
+
+    // Mostrar wallet y copiar dirección
+    const walletAddressEl = document.getElementById('walletAddress');
+    walletAddressEl.firstChild.textContent = wallet;
+
+    document.getElementById('invertido').textContent = invertido + " USDT";
+    document.getElementById('retirado').textContent = retirado + " USDT";
+    document.getElementById('pendiente').textContent = pendiente + " USDT";
+
+    document.getElementById('gananciasSem').textContent = gananciasSem + " USDT";
+    document.getElementById('gananciasRef').textContent = gananciasRef + " USDT";
+    document.getElementById('bonoAdmin').textContent = bonoAdmin + " USDT";
+
+    document.getElementById('historial').textContent = historial;
+
+    // Copiar wallet al portapapeles
+    document.getElementById('copyBtn').addEventListener('click', () => {
+      navigator.clipboard.writeText(wallet).then(() => {
+        alert("Dirección wallet copiada al portapapeles.");
+      }).catch(() => {
+        alert("Error al copiar la dirección.");
+      });
+    });
+
+    // Botón salir cierra la Mini App
+    document.getElementById('btnExit').addEventListener('click', () => {
+      tg.close();
+    });
+
+    // Expande la ventana Mini App para que sea más cómoda
+    tg.expand();
   </script>
+
 </body>
 </html>
+
+</html>
+
