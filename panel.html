@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <title>Panel Core DeX</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <style>
+    body {
+      font-family: sans-serif;
+      background-color: #111;
+      color: #fff;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      max-width: 400px;
+      margin: auto;
+      background: #1c1c1c;
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.5);
+    }
+    h1 {
+      text-align: center;
+      font-size: 22px;
+    }
+    .info {
+      margin-top: 20px;
+    }
+    .info p {
+      margin: 8px 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>👤 Tu Panel Core DeX</h1>
+    <div class="info">
+      <p><strong>Usuario:</strong> <span id="user"></span></p>
+      <p><strong>Capital activo:</strong> ₡150,000</p>
+      <p><strong>Ganancia esta semana:</strong> ₡8,500</p>
+      <p><strong>Estado:</strong> ✅ Activo</p>
+    </div>
+  </div>
+
+  <script>
+    const tg = window.Telegram.WebApp;
+    const userEl = document.getElementById("user");
+
+    tg.ready();
+    const user = tg.initDataUnsafe?.user;
+    if (user) {
+      userEl.innerText = `${user.first_name} ${user.last_name || ''}`;
+    } else {
+      userEl.innerText = "Desconocido";
+    }
+
+    tg.expand(); // Expande la ventana al máximo
+  </script>
+</body>
+</html>
