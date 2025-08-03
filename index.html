@@ -87,17 +87,20 @@
       }
     }
 
-    /* Estilos para el título principal */
+    /* =================== */
+    /* TÍTULO PRINCIPAL CON FLEX PARA ALINEAR TEXTO Y ETIQUETA */
+    /* =================== */
     h1 {
+      display: flex; /* Lo hacemos contenedor flex para alinear hijos */
+      align-items: center; /* Centramos verticalmente */
+      gap: 8px; /* Espacio entre texto y etiqueta */
       font-weight: 900; /* Muy negrita */
       font-size: 28px; /* Tamaño grande */
       background: linear-gradient(90deg, #8b94ff, #4f46e5); /* Degradado para el texto */
       -webkit-background-clip: text; /* Recorta el background solo al texto */
-      -webkit-text-fill-color: transparent; /* Hace el texto transparente para ver el degradado */
-      position: relative;
-      letter-spacing: 1.2px; /* Espacio entre letras */
-      margin: 0; /* Sin margen */
-      user-select: none;
+      -webkit-text-fill-color: transparent; /* Texto transparente para ver degradado */
+      margin: 0; /* Sin margen extra */
+      user-select: none; /* No seleccionable */
     }
 
     /* Estilos para la versión "3.0" al lado del título */
@@ -108,10 +111,8 @@
       color: white; /* Texto blanco */
       padding: 4px 10px; /* Padding para hacer un pill */
       border-radius: 20px; /* Bordes redondeados tipo píldora */
-      margin-left: 12px; /* Separación con el título */
       box-shadow: 0 0 12px var(--color-accent); /* Brillo verde */
       user-select: none; /* No seleccionable */
-      vertical-align: middle;
       animation: pulseVersion 2.5s infinite; /* Animación de brillo */
     }
 
@@ -354,66 +355,76 @@
         height="36"
         viewBox="0 0 24 24"
         fill="none"
-        xmlns="http://www.w3.org/2000/svg"
+        stroke="#8b94ff"
         class="logo-svg"
-        aria-label="Logo Wallet Connect"
+        xmlns="http://www.w3.org/2000/svg"
       >
-        <rect x="2" y="7" width="20" height="10" rx="2" ry="2" stroke="#8b94ff" stroke-width="2" />
-        <path d="M6 12h12" stroke="#4f46e5" stroke-width="2" stroke-linecap="round" />
-        <circle cx="18" cy="12" r="1.5" fill="#10b981" class="pulse-green" />
-        <path d="M10 11v2" stroke="#10b981" stroke-width="2" stroke-linecap="round" />
+        <circle
+          class="pulse-green"
+          cx="12"
+          cy="12"
+          r="1.5"
+          fill="#10b981"
+          stroke="none"
+        />
+        <circle cx="12" cy="12" r="7.5" />
+        <circle cx="12" cy="12" r="10.5" />
+        <circle cx="12" cy="12" r="13.5" />
       </svg>
 
+      <!-- Título con versión 3.0 -->
       <h1>
-        Core DeX Wallet
+        <span>Core DeX Wallet</span>
         <span class="version">3.0</span>
       </h1>
     </div>
 
-    <!-- Dirección de wallet, clickeable para copiar -->
-    <div class="wallet-address" id="walletOnly" title="Haz clic para copiar la dirección">
-      Dirección wallet
+    <!-- DIRECCIÓN DE WALLET -->
+    <div class="wallet-address tooltip" id="walletOnly" data-tooltip="Haz click para copiar la dirección">
+      No asignada
     </div>
 
-    <!-- Botón para copiar y compartir la wallet -->
-    <button class="copy-button" id="copyBtn">🔗 Compartir Wallet</button>
+    <!-- BOTÓN PARA COPIAR/COMPARTIR LA WALLET -->
+    <button class="copy-button" id="copyBtn">
+      🔗 Compartir Wallet
+    </button>
 
-    <!-- Estadísticas principales -->
+    <!-- SECCIÓN DE ESTADÍSTICAS -->
     <section class="stats">
-      <div class="card tooltip" data-tooltip="Monto total invertido">
+      <div class="card">
         <div class="label">Invertido</div>
         <div class="value" id="invertido">--</div>
       </div>
-      <div class="card tooltip" data-tooltip="Monto total retirado">
+      <div class="card">
         <div class="label">Retirado</div>
         <div class="value" id="retirado">--</div>
       </div>
-      <div class="card tooltip" data-tooltip="Monto pendiente por retirar">
+      <div class="card">
         <div class="label">Pendiente</div>
         <div class="value" id="pendiente">--</div>
       </div>
     </section>
 
-    <!-- Ganancias detalladas -->
+    <!-- SECCIÓN DE GANANCIAS -->
     <section class="gains">
       <h2>Ganancias</h2>
       <ul>
-        <li class="tooltip" data-tooltip="Ganancias de esta semana">Semanal <span id="gananciasSem">--</span></li>
-        <li class="tooltip" data-tooltip="Ganancias por referidos">Referidos <span id="gananciasRef">--</span></li>
-        <li class="tooltip" data-tooltip="Bono administrativo">Bono admin <span id="bonoAdmin">--</span></li>
+        <li>Semanal <span id="gananciasSem">--</span></li>
+        <li>Referidos <span id="gananciasRef">--</span></li>
+        <li>Bono admin <span id="bonoAdmin">--</span></li>
       </ul>
     </section>
 
-    <!-- Historial de ganancias -->
-    <section class="history" id="historial" title="Historial de ganancias acumuladas">
-      Historial de ganancias acumuladas...
+    <!-- HISTORIAL -->
+    <section class="history" id="historial">
+      No hay historial.
     </section>
 
-    <!-- Botón para salir de la wallet -->
+    <!-- BOTÓN SALIR -->
     <button id="btnExit">Salir de la Wallet</button>
   </div>
 
-  <!-- Script de integración con Telegram Mini App -->
+  <!-- SCRIPT PARA FUNCIONALIDAD -->
   <script src="https://telegram.org/js/telegram-web-app.js"></script>
   <script>
     const tg = window.Telegram.WebApp;
@@ -421,7 +432,7 @@
     // Función para obtener parámetros de la URL
     function getParameterByName(name) {
       const url = window.location.href;
-      name = name.replace(/[\[\]]/g, '\\$&'); // Escapa caracteres especiales
+      name = name.replace(/[\[\]]/g, '\\$&');
       const regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)');
       const results = regex.exec(url);
       if (!results) return null;
@@ -429,8 +440,7 @@
       return decodeURIComponent(results[2].replace(/\+/g, ' '));
     }
 
-    // Obtenemos datos de la URL o ponemos valores por defecto
-    const nombre = getParameterByName('nombre') || "Usuario";
+    // Obtenemos los datos desde la URL o valores por defecto
     const wallet = getParameterByName('wallet') || "No asignada";
     const invertido = getParameterByName('invertido') || "--";
     const retirado = getParameterByName('retirado') || "--";
@@ -440,11 +450,11 @@
     const bonoAdmin = getParameterByName('bonoAdmin') || "--";
     const historial = getParameterByName('historial') || "No hay historial.";
 
-    // Mostramos la wallet en la página
+    // Mostrar la wallet en el div
     const walletEl = document.getElementById("walletOnly");
     walletEl.textContent = wallet;
 
-    // Asignamos los valores a sus campos correspondientes
+    // Asignamos los valores a las secciones correspondientes
     document.getElementById('invertido').textContent = invertido + " USDT";
     document.getElementById('retirado').textContent = retirado + " USDT";
     document.getElementById('pendiente').textContent = pendiente + " USDT";
@@ -455,11 +465,11 @@
 
     document.getElementById('historial').textContent = historial;
 
-    // Función para copiar la wallet al portapapeles
+    // Función para copiar la wallet al portapapeles con feedback
     function copyWallet() {
       navigator.clipboard.writeText(wallet).then(() => {
         const btn = document.getElementById('copyBtn');
-        btn.textContent = '✅ Copiado'; // Feedback visual
+        btn.textContent = '✅ Copiado'; // Cambio texto para confirmar
         setTimeout(() => {
           btn.textContent = '🔗 Compartir Wallet';
         }, 1500);
@@ -468,7 +478,7 @@
       });
     }
 
-    // Añadimos evento click al botón y al texto de la wallet para copiarla
+    // Añadimos eventos click para copiar al botón y al texto de la wallet
     document.getElementById('copyBtn').addEventListener('click', copyWallet);
     walletEl.addEventListener('click', copyWallet);
 
@@ -477,10 +487,11 @@
       tg.close();
     });
 
-    // Expandimos la ventana de la Mini App al cargar
+    // Expandimos la ventana de la Mini App al cargar para mejor experiencia
     tg.expand();
   </script>
 
 </body>
 </html>
+
 
