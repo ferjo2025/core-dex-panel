@@ -1,497 +1,108 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Core DeX Wallet 3.0</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Core Vault Wallet</title>
 
-  <!-- Importamos la fuente "Space Grotesk" desde Google Fonts -->
   <style>
-    @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&display=swap');
-
-    /* Variables CSS para colores, fuentes y tamaños */
-    :root {
-      --color-bg: #0f1217; /* Fondo oscuro general */
-      --color-card-bg: #1e222a; /* Fondo de tarjetas y contenedores */
-      --color-primary: #4f46e5; /* Color principal azul */
-      --color-secondary: #8b94ff; /* Azul más claro para texto secundario */
-      --color-accent: #10b981; /* Color verde para acentos y botones */
-      --color-text: #e0e6f0; /* Color principal del texto */
-      --color-text-muted: #a0aec0; /* Texto gris para subtítulos y descripciones */
-      --radius: 12px; /* Bordes redondeados */
-      --font-family: 'Space Grotesk', sans-serif; /* Fuente principal */
-    }
-
-    /* Estilos básicos para todo el cuerpo del documento */
+    /* ============
+       ESTILOS GENERALES
+       ============ */
     body {
-      margin: 0; /* Quitamos margen por defecto */
-      background: var(--color-bg); /* Fondo oscuro */
-      font-family: var(--font-family); /* Fuente de texto */
-      color: var(--color-text); /* Color del texto principal */
-      display: flex; /* Usamos flexbox para centrar vertical y horizontalmente */
-      justify-content: center;
-      padding: 16px; /* Padding para separación */
-      min-height: 100vh; /* Que ocupe toda la altura de la ventana */
-      box-sizing: border-box; /* Para que padding y border entren en el tamaño */
-    }
-
-    /* === CONTENEDOR PRINCIPAL DE LA WALLET === */
-    .container {
-      width: 100%;
-      max-width: 420px; /* Máximo ancho para móvil y desktop */
-      background: linear-gradient(145deg, #1e222a, #232834); /* Degradado oscuro */
-      border-radius: var(--radius); /* Bordes redondeados */
-      padding: 24px; /* Espacio interno */
-      box-shadow: 0 0 15px rgba(79, 70, 229, 0.3); /* Sombra suave */
-      display: flex;
-      flex-direction: column;
-      gap: 20px; /* Espaciado entre secciones */
-      opacity: 0; /* Empezamos invisible para animación */
-      animation: fadeIn 0.8s forwards; /* Aparece suavemente */
-    }
-
-    /* Animación para que el contenedor aparezca */
-    @keyframes fadeIn {
-      to {
-        opacity: 1;
-      }
-    }
-
-    /* === BLOQUE DEL LOGO Y TÍTULO CENTRADOS DENTRO DEL CONTAINER === */
-    .logo-title {
-      display: flex; /* Contenido en fila */
-      align-items: center; /* Alineación vertical centrada */
-      gap: 14px; /* Espacio entre logo y texto */
-      justify-content: center; /* Centramos horizontalmente */
-      user-select: none; /* No seleccionable */
-      margin-bottom: 12px; /* Espacio debajo para separar de la wallet */
-    }
-
-    /* Estilos para el logo SVG */
-    .logo-svg {
-      stroke-width: 2.5; /* Grosor de líneas SVG */
-      filter: drop-shadow(0 0 4px #8b94ff88); /* Sombra exterior azul translúcida */
-      animation: pulseLogoShadow 3s infinite ease-in-out; /* Animación de pulso */
-      vertical-align: middle; /* Alineación vertical */
-      width: 36px;
-      height: 36px;
-    }
-
-    /* Animación para que la sombra del logo pulse suavemente */
-    @keyframes pulseLogoShadow {
-      0%, 100% {
-        filter: drop-shadow(0 0 4px #8b94ff88);
-      }
-      50% {
-        filter: drop-shadow(0 0 8px #a3aaffcc);
-      }
-    }
-
-    /* =================== */
-    /* TÍTULO PRINCIPAL CON FLEX PARA ALINEAR TEXTO Y ETIQUETA */
-    /* =================== */
-    h1 {
-      display: flex; /* Lo hacemos contenedor flex para alinear hijos */
-      align-items: center; /* Centramos verticalmente */
-      gap: 8px; /* Espacio entre texto y etiqueta */
-      font-weight: 900; /* Muy negrita */
-      font-size: 28px; /* Tamaño grande */
-      background: linear-gradient(90deg, #8b94ff, #4f46e5); /* Degradado para el texto */
-      -webkit-background-clip: text; /* Recorta el background solo al texto */
-      -webkit-text-fill-color: transparent; /* Texto transparente para ver degradado */
-      margin: 0; /* Sin margen extra */
-      user-select: none; /* No seleccionable */
-    }
-
-    /* Estilos para la versión "3.0" al lado del título */
-    .version {
-      background: var(--color-accent); /* Fondo verde */
-      font-size: 14px; /* Texto pequeño */
-      font-weight: 700; /* Negrita */
-      color: white; /* Texto blanco */
-      padding: 4px 10px; /* Padding para hacer un pill */
-      border-radius: 20px; /* Bordes redondeados tipo píldora */
-      box-shadow: 0 0 12px var(--color-accent); /* Brillo verde */
-      user-select: none; /* No seleccionable */
-      animation: pulseVersion 2.5s infinite; /* Animación de brillo */
-    }
-
-    /* Animación para el brillo pulsante de la versión */
-    @keyframes pulseVersion {
-      0%, 100% {
-        box-shadow: 0 0 12px var(--color-accent);
-      }
-      50% {
-        box-shadow: 0 0 22px #10f39dcc;
-      }
-    }
-
-    /* === DIRECCIÓN DE WALLET Y BOTÓN DE COPIAR === */
-    .wallet-address {
-      display: flex;
-      flex-direction: column; /* En columna */
-      align-items: center; /* Centrado horizontal */
-      gap: 8px; /* Espacio entre dirección y botón */
-      font-size: 14px; /* Tamaño de texto */
-      color: var(--color-secondary); /* Color azul claro */
-      user-select: all; /* Permite seleccionar texto fácilmente */
-      word-break: break-word; /* Permite romper texto largo */
-      text-align: center; /* Centrado texto */
-      cursor: pointer; /* Cursor pointer al pasar */
-    }
-
-    /* Tooltip para dar información extra cuando se pasa el mouse */
-    .tooltip {
-      position: relative;
-      cursor: help; /* Cursor de ayuda */
-      border-bottom: 1px dotted var(--color-text-muted); /* Línea punteada debajo */
-    }
-    /* Contenido del tooltip que aparece al pasar el mouse */
-    .tooltip:hover::after {
-      content: attr(data-tooltip); /* Toma el texto del atributo data-tooltip */
-      position: absolute;
-      bottom: 125%; /* Se muestra arriba del elemento */
-      left: 50%; /* Centrado horizontal */
-      transform: translateX(-50%);
-      background-color: var(--color-primary); /* Fondo azul */
-      color: white;
-      padding: 6px 10px;
-      border-radius: 8px;
-      white-space: nowrap;
-      font-size: 12px;
-      box-shadow: 0 0 10px rgba(79, 70, 229, 0.6);
-      opacity: 1;
-      pointer-events: auto;
-      z-index: 10;
-    }
-    /* El tooltip está oculto por defecto */
-    .tooltip::after {
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s ease;
-    }
-
-    /* Botón para copiar o compartir la wallet */
-    .copy-button {
-      position: relative;
-      background: var(--color-primary); /* Fondo azul fuerte */
-      border: none;
-      color: white;
-      padding: 8px 14px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-weight: 600;
-      font-size: 13px;
-      transition: background 0.3s ease, box-shadow 0.3s ease;
-      box-shadow: 0 0 8px rgba(79, 70, 229, 0.4);
-      user-select: none; /* No permite seleccionar texto */
-      display: flex;
-      align-items: center;
-      gap: 6px; /* Espacio entre ícono y texto */
-      justify-content: center;
-      width: fit-content;
-      margin: 0 auto; /* Centrar horizontalmente */
-    }
-
-    /* Cambio de color y sombra al pasar el mouse */
-    .copy-button:hover {
-      background: var(--color-accent); /* Verde */
-      box-shadow: 0 0 15px var(--color-accent);
-    }
-
-    /* Animación al hacer clic para dar feedback */
-    .copy-button:active {
-      animation: clickConfirm 0.5s forwards;
-    }
-
-    @keyframes clickConfirm {
-      0% { box-shadow: 0 0 15px var(--color-accent); }
-      50% { box-shadow: 0 0 30px #10f39d; }
-      100% { box-shadow: none; }
-    }
-
-    /* === TARJETAS ESTADÍSTICAS === */
-    section.stats {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr); /* 3 columnas iguales */
-      gap: 16px; /* Espacio entre tarjetas */
-    }
-
-    .card {
-      background: #272c3a; /* Fondo oscuro */
-      border-radius: var(--radius);
-      padding: 16px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      box-shadow: inset 0 0 6px rgba(255, 255, 255, 0.05); /* Sombra interior sutil */
-      cursor: default; /* Cursor normal */
-      transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transición suave */
-      user-select: none; /* No seleccionable */
-    }
-
-    /* Efecto hover que levanta y escala la tarjeta */
-    .card:hover {
-      transform: translateY(-6px) scale(1.05);
-      box-shadow: inset 0 0 15px rgba(79, 70, 229, 0.9);
-    }
-
-    /* Etiqueta de cada tarjeta */
-    .card .label {
-      font-size: 13px;
-      color: var(--color-text-muted);
-      margin-bottom: 6px;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-
-    /* Valor destacado en cada tarjeta */
-    .card .value {
-      font-size: 18px;
-      font-weight: 700;
-      color: var(--color-text);
-    }
-
-    /* === SECCIÓN DE GANANCIAS === */
-    section.gains {
-      background: var(--color-card-bg);
-      border-radius: var(--radius);
-      padding: 16px;
-      box-shadow: 0 0 12px rgba(79, 70, 229, 0.3);
-      user-select: none;
-    }
-
-    section.gains h2 {
-      margin: 0 0 12px 0;
-      font-size: 20px;
-      font-weight: 700;
-      letter-spacing: 1.2px;
-      color: var(--color-primary);
-    }
-
-    section.gains ul {
-      list-style: none;
-      padding: 0;
       margin: 0;
+      padding: 0;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; /* Fuente moderna y legible */
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364); /* Fondo degradado oscuro */
+      color: #f5f5f5; /* Color de texto claro para contraste */
+      display: flex; 
+      justify-content: center; /* Centrar horizontal */
+      align-items: center; /* Centrar vertical */
+      height: 100vh; /* Ocupar toda la pantalla */
     }
 
-    section.gains li {
+    /* ============
+       CONTENEDOR PRINCIPAL
+       ============ */
+    .card {
+      background: rgba(255, 255, 255, 0.05); /* Fondo translúcido */
+      padding: 30px;
+      border-radius: 20px; /* Bordes redondeados */
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5); /* Sombra elegante */
+      max-width: 400px;
+      width: 90%;
+      text-align: center; /* Todo el texto centrado */
+    }
+
+    /* ============
+       TÍTULO PRINCIPAL
+       ============ */
+    .card h1 {
+      font-size: 26px;
+      margin-bottom: 15px;
+      color: #00ff99; /* Verde brillante que resalta */
+      letter-spacing: 1px; /* Separación entre letras */
+    }
+
+    /* ============
+       SECCIÓN DE GANANCIAS
+       ============ */
+    .card h2 {
+      font-size: 20px;
+      margin-bottom: 10px;
+      color: #ffffff;
+    }
+
+    .earnings {
+      text-align: left; /* Alinear números a la izquierda */
+      margin: 15px 0;
       font-size: 16px;
-      margin-bottom: 8px;
-      color: var(--color-text);
-      display: flex;
-      justify-content: space-between;
-      font-weight: 600;
+      line-height: 1.6;
     }
 
-    section.gains li span {
-      font-weight: 400;
-      color: var(--color-text-muted);
+    .earnings span {
+      float: right; /* Poner el monto al lado derecho */
+      color: #00e0ff; /* Azul brillante */
     }
 
-    /* === HISTORIAL === */
-    section.history {
-      background: var(--color-card-bg);
-      border-radius: var(--radius);
-      padding: 16px;
-      max-height: 120px;
-      overflow-y: auto; /* Scroll vertical si hay mucho texto */
-      font-size: 14px;
-      color: var(--color-text-muted);
-      box-shadow: inset 0 0 8px rgba(255,255,255,0.05);
-      white-space: pre-wrap; /* Que respete saltos de línea */
-      user-select: text; /* Permite seleccionar texto */
-    }
-
-    /* === BOTÓN SALIR === */
-    button#btnExit {
-      background: var(--color-primary);
-      border: none;
-      color: white;
-      padding: 14px;
-      border-radius: var(--radius);
+    /* ============
+       GANANCIA ACUMULADA
+       ============ */
+    .total {
+      margin-top: 20px;
       font-size: 18px;
-      font-weight: 700;
-      cursor: pointer;
-      margin-top: 10px;
-      transition: background 0.3s ease;
-      width: 100%;
-      user-select: none;
+      font-weight: bold;
+      background: rgba(0, 255, 153, 0.2); /* Fondo verde translúcido */
+      padding: 10px;
+      border-radius: 10px;
+      color: #00ff99;
     }
-
-    button#btnExit:hover {
-      background: var(--color-accent);
-    }
-
-    /* === PULSO VERDE CÍRCULO LOGO === */
-    .pulse-green {
-      animation: pulse 2.5s infinite;
-      transform-origin: center;
-    }
-
-    @keyframes pulse {
-      0%, 100% {
-        r: 1.5;
-        opacity: 1;
-      }
-      50% {
-        r: 2.5;
-        opacity: 0.6;
-      }
-    }
-
   </style>
 </head>
 <body>
 
-  <!-- CONTENEDOR PRINCIPAL CON TODO EL CONTENIDO -->
-  <div class="container">
+  <!-- CONTENEDOR DE LA TARJETA -->
+  <div class="card">
 
-    <!-- BLOQUE NUEVO: LOGO Y TÍTULO CENTRADOS -->
-    <div class="logo-title">
-      <!-- Logo wallet connect SVG -->
-      <svg
-        width="36"
-        height="36"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="#8b94ff"
-        class="logo-svg"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <circle
-          class="pulse-green"
-          cx="12"
-          cy="12"
-          r="1.5"
-          fill="#10b981"
-          stroke="none"
-        />
-        <circle cx="12" cy="12" r="7.5" />
-        <circle cx="12" cy="12" r="10.5" />
-        <circle cx="12" cy="12" r="13.5" />
-      </svg>
+    <!-- TÍTULO PRINCIPAL -->
+    <h1>Core Vault Wallet</h1>
 
-      <!-- Título con versión 3.0 -->
-      <h1>
-        <span>Core DeX Wallet</span>
-        <span class="version">3.0</span>
-      </h1>
+    <!-- SUBTÍTULO DE SECCIÓN -->
+    <h2>Ganancias</h2>
+
+    <!-- LISTADO DE GANANCIAS -->
+    <div class="earnings">
+      Semanal <span>15 USDT</span><br>
+      Referidos <span>8 USDT</span><br>
+      Bono Admin <span>5 USDT</span>
     </div>
 
-    <!-- DIRECCIÓN DE WALLET -->
-    <div class="wallet-address tooltip" id="walletOnly" data-tooltip="Haz click para copiar la dirección">
-      No asignada
+    <!-- GANANCIA ACUMULADA FINAL -->
+    <div class="total">
+      🟢 Ganancia Acumulada: 28 USDT
     </div>
 
-    <!-- BOTÓN PARA COPIAR/COMPARTIR LA WALLET -->
-    <button class="copy-button" id="copyBtn">
-      🔗 Compartir Wallet
-    </button>
-
-    <!-- SECCIÓN DE ESTADÍSTICAS -->
-    <section class="stats">
-      <div class="card">
-        <div class="label">Invertido</div>
-        <div class="value" id="invertido">--</div>
-      </div>
-      <div class="card">
-        <div class="label">Retirado</div>
-        <div class="value" id="retirado">--</div>
-      </div>
-      <div class="card">
-        <div class="label">Pendiente</div>
-        <div class="value" id="pendiente">--</div>
-      </div>
-    </section>
-
-    <!-- SECCIÓN DE GANANCIAS -->
-    <section class="gains">
-      <h2>Ganancias</h2>
-      <ul>
-        <li>Semanal <span id="gananciasSem">--</span></li>
-        <li>Referidos <span id="gananciasRef">--</span></li>
-        <li>Bono admin <span id="bonoAdmin">--</span></li>
-      </ul>
-    </section>
-
-    <!-- HISTORIAL -->
-    <section class="history" id="historial">
-      No hay historial.
-    </section>
-
-    <!-- BOTÓN SALIR -->
-    <button id="btnExit">Salir de la Wallet</button>
   </div>
-
-  <!-- SCRIPT PARA FUNCIONALIDAD -->
-  <script src="https://telegram.org/js/telegram-web-app.js"></script>
-  <script>
-    const tg = window.Telegram.WebApp;
-
-    // Función para obtener parámetros de la URL
-    function getParameterByName(name) {
-      const url = window.location.href;
-      name = name.replace(/[\[\]]/g, '\\$&');
-      const regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)');
-      const results = regex.exec(url);
-      if (!results) return null;
-      if (!results[2]) return '';
-      return decodeURIComponent(results[2].replace(/\+/g, ' '));
-    }
-
-    // Obtenemos los datos desde la URL o valores por defecto
-    const wallet = getParameterByName('wallet') || "No asignada";
-    const invertido = getParameterByName('invertido') || "--";
-    const retirado = getParameterByName('retirado') || "--";
-    const pendiente = getParameterByName('pendiente') || "--";
-    const gananciasSem = getParameterByName('gananciasSem') || "--";
-    const gananciasRef = getParameterByName('gananciasRef') || "--";
-    const bonoAdmin = getParameterByName('bonoAdmin') || "--";
-    const historial = getParameterByName('historial') || "No hay historial.";
-
-    // Mostrar la wallet en el div
-    const walletEl = document.getElementById("walletOnly");
-    walletEl.textContent = wallet;
-
-    // Asignamos los valores a las secciones correspondientes
-    document.getElementById('invertido').textContent = invertido + " USDT";
-    document.getElementById('retirado').textContent = retirado + " USDT";
-    document.getElementById('pendiente').textContent = pendiente + " USDT";
-
-    document.getElementById('gananciasSem').textContent = gananciasSem + " USDT";
-    document.getElementById('gananciasRef').textContent = gananciasRef + " USDT";
-    document.getElementById('bonoAdmin').textContent = bonoAdmin + " USDT";
-
-    document.getElementById('historial').textContent = historial;
-
-    // Función para copiar la wallet al portapapeles con feedback
-    function copyWallet() {
-      navigator.clipboard.writeText(wallet).then(() => {
-        const btn = document.getElementById('copyBtn');
-        btn.textContent = '✅ Copiado'; // Cambio texto para confirmar
-        setTimeout(() => {
-          btn.textContent = '🔗 Compartir Wallet';
-        }, 1500);
-      }).catch(() => {
-        alert("Error al copiar la dirección.");
-      });
-    }
-
-    // Añadimos eventos click para copiar al botón y al texto de la wallet
-    document.getElementById('copyBtn').addEventListener('click', copyWallet);
-    walletEl.addEventListener('click', copyWallet);
-
-    // Botón salir cierra la Mini App de Telegram
-    document.getElementById('btnExit').addEventListener('click', () => {
-      tg.close();
-    });
-
-    // Expandimos la ventana de la Mini App al cargar para mejor experiencia
-    tg.expand();
-  </script>
 
 </body>
 </html>
-
-
