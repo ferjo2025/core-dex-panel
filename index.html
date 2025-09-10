@@ -5,11 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Core Vault</title>
 
-<!-- Fuente moderna para todo el diseño -->
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&display=swap');
+<!-- Fuente moderna -->
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
 
-/* 🎨 Variables de colores y estilo base */
+<style>
 :root {
   --color-bg: #0f1217;
   --color-card-bg: #1e222a;
@@ -18,31 +17,31 @@
   --color-accent: #10b981;
   --color-text: #e0e6f0;
   --color-text-muted: #a0aec0;
-  --radius: 12px;
+  --radius: 14px;
   --font-family: 'Space Grotesk', sans-serif;
 }
 
-/* Estilos generales de la página */
 body {
   margin: 0;
-  background: var(--color-bg);
   font-family: var(--font-family);
+  background: linear-gradient(135deg, #0f1217, #1a1d25);
   color: var(--color-text);
   display: flex;
   justify-content: center;
-  padding: 16px;
+  align-items: center;
   min-height: 100vh;
+  padding: 16px;
   box-sizing: border-box;
 }
 
 /* Contenedor principal */
 .container {
-  width: 100%;
   max-width: 420px;
-  background: linear-gradient(145deg, #1e222a, #232834);
+  width: 100%;
+  background: var(--color-card-bg);
   border-radius: var(--radius);
   padding: 24px;
-  box-shadow: 0 0 15px rgba(79, 70, 229, 0.3);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.5);
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -50,258 +49,187 @@ body {
   animation: fadeIn 0.8s forwards;
 }
 
-@keyframes fadeIn { to { opacity: 1; } }
+/* Animación de fadeIn */
+@keyframes fadeIn {
+  to { opacity: 1; }
+}
 
-/* Bloque del logo y título */
+/* Logo y título */
 .logo-title {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 14px;
-  justify-content: center;
-  user-select: none;
+  gap: 12px;
+  text-align: center;
 }
 
 .logo-svg {
-  stroke-width: 2.5;
-  filter: drop-shadow(0 0 4px #8b94ff88);
+  width: 48px;
+  height: 48px;
+  stroke: var(--color-secondary);
+  filter: drop-shadow(0 0 6px #8b94ff88);
   animation: pulseLogoShadow 3s infinite ease-in-out;
-  width: 36px;
-  height: 36px;
 }
 
 @keyframes pulseLogoShadow {
-  0%, 100% { filter: drop-shadow(0 0 4px #8b94ff88); }
-  50% { filter: drop-shadow(0 0 8px #a3aaffcc); }
+  0%,100% { filter: drop-shadow(0 0 6px #8b94ff88);}
+  50% { filter: drop-shadow(0 0 12px #a3aaffcc);}
 }
 
-/* Título Core Vault */
+/* Slogan debajo del logo */
+.slogan {
+  font-size: 14px;
+  color: var(--color-secondary);
+  font-weight: 500;
+}
+
+/* Título */
 h1 {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-weight: 900;
   font-size: 28px;
+  font-weight: 900;
   background: linear-gradient(90deg, #8b94ff, #4f46e5);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   margin: 0;
-  user-select: none;
 }
 
-/* Versión 3.0 con efecto brillante */
-.version {
-  background: var(--color-accent);
-  font-size: 14px;
-  font-weight: 700;
-  color: white;
-  padding: 4px 10px;
-  border-radius: 20px;
-  box-shadow: 0 0 12px var(--color-accent);
-  animation: pulseVersion 2.5s infinite;
-}
-
-@keyframes pulseVersion {
-  0%, 100% { box-shadow: 0 0 12px var(--color-accent); }
-  50% { box-shadow: 0 0 22px #10f39dcc; }
-}
-
-/* Dirección de wallet */
+/* Wallet address */
 .wallet-address {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
   font-size: 14px;
   color: var(--color-secondary);
-  user-select: all;
-  word-break: break-word;
   text-align: center;
+  user-select: all;
   cursor: pointer;
+  padding: 8px 12px;
+  border-radius: var(--radius);
+  background: rgba(79,70,229,0.1);
+  transition: background 0.3s;
 }
+.wallet-address:hover { background: rgba(79,70,229,0.2); }
 
-/* Botón compartir wallet */
+/* Botón copiar wallet */
 .copy-button {
   background: var(--color-primary);
-  border: none;
   color: white;
-  padding: 8px 14px;
-  border-radius: 8px;
-  cursor: pointer;
+  border: none;
+  padding: 10px 16px;
+  border-radius: var(--radius);
   font-weight: 600;
-  font-size: 13px;
-  transition: background 0.3s ease, box-shadow 0.3s ease;
-  box-shadow: 0 0 8px rgba(79, 70, 229, 0.4);
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
   display: flex;
-  align-items: center;
-  gap: 6px;
   justify-content: center;
-  margin: 0 auto;
+  align-items: center;
+  gap: 8px;
 }
+.copy-button:hover { background: var(--color-accent); transform: scale(1.05);}
+.copy-button:active { transform: scale(0.95); }
 
-.copy-button:hover {
-  background: var(--color-accent);
-  box-shadow: 0 0 15px var(--color-accent);
-}
-
-.copy-button:active { animation: clickConfirm 0.5s forwards; }
-
-@keyframes clickConfirm {
-  0% { box-shadow: 0 0 15px var(--color-accent); }
-  50% { box-shadow: 0 0 30px #10f39d; }
-  100% { box-shadow: none; }
-}
-
-/* Tarjetas estadísticas (3 columnas) */
+/* Cards estadísticas */
 section.stats {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
+  gap: 12px;
 }
-
 .card {
-  background: #272c3a;
+  background: rgba(40,45,60,0.8);
   border-radius: var(--radius);
-  padding: 16px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  box-shadow: inset 0 0 6px rgba(255, 255, 255, 0.05);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  padding: 12px;
+  text-align: center;
+  transition: transform 0.3s, box-shadow 0.3s;
 }
-
 .card:hover {
   transform: translateY(-6px) scale(1.05);
-  box-shadow: inset 0 0 15px rgba(79, 70, 229, 0.9);
+  box-shadow: 0 0 20px rgba(79,70,229,0.5);
 }
+.card .label { font-size: 12px; color: var(--color-text-muted); margin-bottom: 4px; text-transform: uppercase;}
+.card .value { font-size: 16px; font-weight: 700; color: var(--color-text);}
 
-.card .label {
-  font-size: 13px;
-  color: var(--color-text-muted);
-  margin-bottom: 6px;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-.card .value {
-  font-size: 18px;
-  font-weight: 700;
-}
-
-/* Sección de ganancias */
+/* Ganancias */
 section.gains {
   background: var(--color-card-bg);
-  border-radius: var(--radius);
   padding: 16px;
-  box-shadow: 0 0 12px rgba(79, 70, 229, 0.3);
+  border-radius: var(--radius);
+  box-shadow: inset 0 0 12px rgba(79,70,229,0.2);
 }
-
 section.gains h2 {
-  margin: 0 0 12px 0;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 700;
+  margin-bottom: 10px;
   color: var(--color-primary);
 }
-
 section.gains ul {
   list-style: none;
   padding: 0;
   margin: 0;
 }
-
 section.gains li {
-  font-size: 16px;
-  margin-bottom: 8px;
   display: flex;
   justify-content: space-between;
+  margin-bottom: 6px;
   font-weight: 600;
+  font-size: 14px;
+  color: var(--color-text);
 }
-
-section.gains li span {
-  font-weight: 400;
-  color: var(--color-text-muted);
-}
+section.gains li span { font-weight: 400; color: var(--color-text-muted); }
 
 /* Botón salir */
-button#btnExit {
+#btnExit {
   background: var(--color-primary);
-  border: none;
   color: white;
-  padding: 14px;
-  border-radius: var(--radius);
-  font-size: 18px;
+  border: none;
+  padding: 12px;
   font-weight: 700;
+  font-size: 16px;
+  border-radius: var(--radius);
   cursor: pointer;
-  transition: background 0.3s ease;
   width: 100%;
+  transition: background 0.3s;
 }
+#btnExit:hover { background: var(--color-accent); }
 
-button#btnExit:hover { background: var(--color-accent); }
-
-/* Efecto de pulso verde en el logo */
-.pulse-green {
-  animation: pulse 2.5s infinite;
-  transform-origin: center;
-}
-@keyframes pulse {
-  0%, 100% { r: 1.5; opacity: 1; }
-  50% { r: 2.5; opacity: 0.6; }
-}
 </style>
 </head>
+
 <body>
-
 <div class="container">
-  <!-- Logo y título -->
   <div class="logo-title">
-    <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#8b94ff" class="logo-svg" xmlns="http://www.w3.org/2000/svg">
-      <circle class="pulse-green" cx="12" cy="12" r="1.5" fill="#10b981" stroke="none"/>
-      <circle cx="12" cy="12" r="7.5" />
-      <circle cx="12" cy="12" r="10.5" />
-      <circle cx="12" cy="12" r="13.5" />
+    <svg class="logo-svg" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="12" cy="12" r="2" fill="#10b981"/>
+      <circle cx="12" cy="12" r="7.5"/>
+      <circle cx="12" cy="12" r="10.5"/>
     </svg>
-    <h1>
-      <span>Core Vault</span>
-      <span class="version">3.0</span>
-    </h1>
+    <h1>Core Vault</h1>
+    <div class="slogan">🔐 Control total de tus inversiones</div>
   </div>
 
-  <!-- Dirección de la wallet -->
-  <div class="wallet-address tooltip" id="walletOnly" data-tooltip="Haz click para copiar la dirección">
-    No asignada
-  </div>
+  <div class="wallet-address" id="walletOnly" title="Haz click para copiar">No asignada</div>
+  <button class="copy-button" id="copyBtn">🔗 Copiar Wallet</button>
 
-  <!-- Botón para copiar/compartir -->
-  <button class="copy-button" id="copyBtn">🔗 Compartir Wallet</button>
-
-  <!-- Tarjetas estadísticas -->
   <section class="stats">
     <div class="card"><div class="label">Invertido</div><div class="value" id="invertido">--</div></div>
     <div class="card"><div class="label">Retirado</div><div class="value" id="retirado">--</div></div>
     <div class="card"><div class="label">Pendiente</div><div class="value" id="pendiente">--</div></div>
   </section>
 
-  <!-- Ganancias -->
   <section class="gains">
     <h2>Ganancias</h2>
     <ul>
       <li>Semanal <span id="gananciasSem">--</span></li>
       <li>Referidos <span id="gananciasRef">--</span></li>
       <li>Bono admin <span id="bonoAdmin">--</span></li>
-      <!-- 👇 Aquí ahora va la ganancia acumulada (antes historial) -->
       <li>Ganancia acumulada <span id="gananciaTotal">--</span></li>
     </ul>
   </section>
 
-  <!-- Botón salir -->
   <button id="btnExit">Salir de la Wallet</button>
 </div>
 
-<!-- Script funcional -->
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <script>
 const tg = window.Telegram.WebApp;
 
-// 🔎 Función para leer parámetros de la URL
+// Valores desde parámetros (backend debería pasarlos)
 function getParameterByName(name) {
   const url = window.location.href;
   name = name.replace(/[\[\]]/g, '\\$&');
@@ -312,7 +240,6 @@ function getParameterByName(name) {
   return decodeURIComponent(results[2].replace(/\+/g, ' '));
 }
 
-// 📊 Cargamos datos dinámicos desde la URL o valores por defecto
 const wallet = getParameterByName('wallet') || "No asignada";
 const invertido = getParameterByName('invertido') || "--";
 const retirado = getParameterByName('retirado') || "--";
@@ -320,10 +247,8 @@ const pendiente = getParameterByName('pendiente') || "--";
 const gananciasSem = getParameterByName('gananciasSem') || "--";
 const gananciasRef = getParameterByName('gananciasRef') || "--";
 const bonoAdmin = getParameterByName('bonoAdmin') || "--";
-/* 👇 Aquí usamos lo que antes era historial como ganancia acumulada */
-const gananciaTotal = getParameterByName('gananciaTotal') || "0";
+const gananciaTotal = getParameterByName('gananciaTotal') || "--";
 
-// 🖥️ Pintamos los valores en la UI
 document.getElementById("walletOnly").textContent = wallet;
 document.getElementById('invertido').textContent = invertido + " USDT";
 document.getElementById('retirado').textContent = retirado + " USDT";
@@ -333,24 +258,27 @@ document.getElementById('gananciasRef').textContent = gananciasRef + " USDT";
 document.getElementById('bonoAdmin').textContent = bonoAdmin + " USDT";
 document.getElementById('gananciaTotal').textContent = gananciaTotal + " USDT";
 
-// 📋 Función copiar wallet
+// Copiar wallet
 function copyWallet() {
   navigator.clipboard.writeText(wallet).then(() => {
     const btn = document.getElementById('copyBtn');
     btn.textContent = '✅ Copiado';
-    setTimeout(() => { btn.textContent = '🔗 Compartir Wallet'; }, 1500);
+    setTimeout(() => { btn.textContent = '🔗 Copiar Wallet'; }, 1500);
   }).catch(() => { alert("Error al copiar la dirección."); });
 }
 
-// Eventos de botones
 document.getElementById('copyBtn').addEventListener('click', copyWallet);
 document.getElementById("walletOnly").addEventListener('click', copyWallet);
-document.getElementById('btnExit').addEventListener('click', () => { tg.close(); });
 
-// Expandimos mini app
+// Salir de la MiniApp
+document.getElementById('btnExit').addEventListener('click', () => tg.close());
+
+// Expandir MiniApp al abrir
 tg.expand();
 </script>
+
 </body>
 </html>
+
 
 
