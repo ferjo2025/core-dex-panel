@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Core Vault</title>
 
-<!-- Fuente moderna -->
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
 
 <style>
@@ -22,9 +21,9 @@
 }
 
 body {
-  margin: 0;
+  margin:0;
   font-family: var(--font-family);
-  background: linear-gradient(135deg, #0f1217, #1a1d25);
+  background: linear-gradient(135deg,#0f1217,#1a1d25);
   color: var(--color-text);
   display: flex;
   justify-content: center;
@@ -34,7 +33,6 @@ body {
   box-sizing: border-box;
 }
 
-/* Contenedor principal */
 .container {
   max-width: 420px;
   width: 100%;
@@ -47,12 +45,11 @@ body {
   gap: 20px;
   opacity: 0;
   animation: fadeIn 0.8s forwards;
+  position: relative;
 }
 
-/* Animación de fadeIn */
-@keyframes fadeIn {
-  to { opacity: 1; }
-}
+/* Fade in container */
+@keyframes fadeIn { to { opacity: 1; } }
 
 /* Logo y título */
 .logo-title {
@@ -61,133 +58,137 @@ body {
   align-items: center;
   gap: 12px;
   text-align: center;
+  position: relative;
 }
-
 .logo-svg {
   width: 48px;
   height: 48px;
-  stroke: var(--color-secondary);
-  filter: drop-shadow(0 0 6px #8b94ff88);
-  animation: pulseLogoShadow 3s infinite ease-in-out;
 }
-
-@keyframes pulseLogoShadow {
-  0%,100% { filter: drop-shadow(0 0 6px #8b94ff88);}
-  50% { filter: drop-shadow(0 0 12px #a3aaffcc);}
+.logo-center { 
+  animation: pulse 2s infinite; 
+  fill: #10b981;
 }
-
-/* Slogan debajo del logo */
+@keyframes pulse {
+  0%,100% { r:4; opacity:1; }
+  50% { r:6; opacity:0.6; }
+}
 .slogan {
   font-size: 14px;
   color: var(--color-secondary);
   font-weight: 500;
-}
-
-/* Título */
-h1 {
-  font-size: 28px;
-  font-weight: 900;
-  background: linear-gradient(90deg, #8b94ff, #4f46e5);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  margin: 0;
+  transition: opacity 0.5s;
 }
 
 /* Wallet address */
 .wallet-address {
-  font-size: 14px;
+  font-size:14px;
   color: var(--color-secondary);
-  text-align: center;
+  text-align:center;
   user-select: all;
-  cursor: pointer;
-  padding: 8px 12px;
+  cursor:pointer;
+  padding:8px 12px;
   border-radius: var(--radius);
   background: rgba(79,70,229,0.1);
   transition: background 0.3s;
 }
-.wallet-address:hover { background: rgba(79,70,229,0.2); }
+.wallet-address:active { background: rgba(79,70,229,0.2); }
 
-/* Botón copiar wallet */
+/* Copy button */
 .copy-button {
   background: var(--color-primary);
   color: white;
-  border: none;
-  padding: 10px 16px;
+  border:none;
+  padding:10px 16px;
   border-radius: var(--radius);
-  font-weight: 600;
-  cursor: pointer;
-  transition: background 0.3s, transform 0.2s;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
+  font-weight:600;
+  cursor:pointer;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:8px;
+  transition: transform 0.1s, box-shadow 0.2s, background 0.3s;
 }
-.copy-button:hover { background: var(--color-accent); transform: scale(1.05);}
-.copy-button:active { transform: scale(0.95); }
+.copy-button:active { 
+  transform: scale(0.95);
+  box-shadow: 0 0 15px #10b981;
+}
+.copy-button:hover { background: var(--color-accent); transform: scale(1.05); }
 
-/* Cards estadísticas */
+/* Stats cards */
 section.stats {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
+  display:flex;
+  gap:12px;
+  overflow-x:auto;
+  padding-bottom:8px;
 }
+section.stats::-webkit-scrollbar { display:none; }
 .card {
+  min-width:100px;
   background: rgba(40,45,60,0.8);
   border-radius: var(--radius);
-  padding: 12px;
-  text-align: center;
-  transition: transform 0.3s, box-shadow 0.3s;
+  padding:12px;
+  text-align:center;
+  transition: transform 0.2s, box-shadow 0.2s;
 }
-.card:hover {
-  transform: translateY(-6px) scale(1.05);
-  box-shadow: 0 0 20px rgba(79,70,229,0.5);
+.card:active {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px #10b981;
 }
-.card .label { font-size: 12px; color: var(--color-text-muted); margin-bottom: 4px; text-transform: uppercase;}
-.card .value { font-size: 16px; font-weight: 700; color: var(--color-text);}
+.card .label { font-size:12px; color: var(--color-text-muted); margin-bottom:4px; text-transform: uppercase; }
+.card .value { font-size:16px; font-weight:700; color: var(--color-text); }
 
-/* Ganancias */
+/* Gains */
 section.gains {
   background: var(--color-card-bg);
-  padding: 16px;
+  padding:16px;
   border-radius: var(--radius);
   box-shadow: inset 0 0 12px rgba(79,70,229,0.2);
+  transition: max-height 0.4s ease;
 }
-section.gains h2 {
-  font-size: 18px;
-  font-weight: 700;
-  margin-bottom: 10px;
-  color: var(--color-primary);
-}
-section.gains ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
+section.gains h2 { font-size:18px; font-weight:700; margin-bottom:10px; color: var(--color-primary); }
+section.gains ul { list-style:none; padding:0; margin:0; }
 section.gains li {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 6px;
-  font-weight: 600;
-  font-size: 14px;
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:6px;
+  font-weight:600;
+  font-size:14px;
   color: var(--color-text);
 }
-section.gains li span { font-weight: 400; color: var(--color-text-muted); }
+section.gains li span { font-weight:400; color: var(--color-text-muted); }
 
-/* Botón salir */
+/* Exit button */
 #btnExit {
   background: var(--color-primary);
-  color: white;
-  border: none;
-  padding: 12px;
-  font-weight: 700;
-  font-size: 16px;
+  color:white;
+  border:none;
+  padding:12px;
+  font-weight:700;
+  font-size:16px;
   border-radius: var(--radius);
-  cursor: pointer;
-  width: 100%;
-  transition: background 0.3s;
+  cursor:pointer;
+  width:100%;
+  transition: background 0.3s, transform 0.1s;
 }
+#btnExit:active { transform: scale(0.95); box-shadow: 0 0 15px #10b981; }
 #btnExit:hover { background: var(--color-accent); }
 
+/* Tooltip flotante para copiar wallet */
+#copyTooltip {
+  position:absolute;
+  background: #10b981;
+  color:white;
+  padding:6px 12px;
+  border-radius:10px;
+  font-size:12px;
+  opacity:0;
+  pointer-events:none;
+  transform:translateY(0);
+  transition: opacity 0.4s, transform 0.4s;
+  top: -50px;
+  left:50%;
+  transform: translateX(-50%);
+}
 </style>
 </head>
 
@@ -195,7 +196,7 @@ section.gains li span { font-weight: 400; color: var(--color-text-muted); }
 <div class="container">
   <div class="logo-title">
     <svg class="logo-svg" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="12" cy="12" r="2" fill="#10b981"/>
+      <circle class="logo-center" cx="12" cy="12" r="4"/>
       <circle cx="12" cy="12" r="7.5"/>
       <circle cx="12" cy="12" r="10.5"/>
     </svg>
@@ -205,14 +206,15 @@ section.gains li span { font-weight: 400; color: var(--color-text-muted); }
 
   <div class="wallet-address" id="walletOnly" title="Haz click para copiar">No asignada</div>
   <button class="copy-button" id="copyBtn">🔗 Copiar Wallet</button>
+  <div id="copyTooltip">Copiado ✅</div>
 
-  <section class="stats">
+  <section class="stats section-anim">
     <div class="card"><div class="label">Invertido</div><div class="value" id="invertido">--</div></div>
     <div class="card"><div class="label">Retirado</div><div class="value" id="retirado">--</div></div>
     <div class="card"><div class="label">Pendiente</div><div class="value" id="pendiente">--</div></div>
   </section>
 
-  <section class="gains">
+  <section class="gains section-anim">
     <h2>Ganancias</h2>
     <ul>
       <li>Semanal <span id="gananciasSem">--</span></li>
@@ -229,67 +231,91 @@ section.gains li span { font-weight: 400; color: var(--color-text-muted); }
 <script>
 const tg = window.Telegram.WebApp;
 
-// Valores desde parámetros (backend debería pasarlos)
+// Obtener parámetros desde backend
 function getParameterByName(name) {
   const url = window.location.href;
   name = name.replace(/[\[\]]/g, '\\$&');
-  const regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)');
+  const regex = new RegExp('[?&]'+name+'(=([^&#]*)|&|#|$)');
   const results = regex.exec(url);
-  if (!results) return null;
-  if (!results[2]) return '';
-  return decodeURIComponent(results[2].replace(/\+/g, ' '));
+  if(!results) return null;
+  if(!results[2]) return '';
+  return decodeURIComponent(results[2].replace(/\+/g,' '));
 }
 
 const wallet = getParameterByName('wallet') || "No asignada";
-const invertido = getParameterByName('invertido') || "--";
-const retirado = getParameterByName('retirado') || "--";
-const pendiente = getParameterByName('pendiente') || "--";
-const gananciasSem = getParameterByName('gananciasSem') || "--";
-const gananciasRef = getParameterByName('gananciasRef') || "--";
-const bonoAdmin = getParameterByName('bonoAdmin') || "--";
-const gananciaTotal = getParameterByName('gananciaTotal') || "--";
+const invertido = parseInt(getParameterByName('invertido') || 0);
+const retirado = parseInt(getParameterByName('retirado') || 0);
+const pendiente = parseInt(getParameterByName('pendiente') || 0);
+const gananciasSem = parseInt(getParameterByName('gananciasSem') || 0);
+const gananciasRef = parseInt(getParameterByName('gananciasRef') || 0);
+const bonoAdmin = parseInt(getParameterByName('bonoAdmin') || 0);
+const gananciaTotal = parseInt(getParameterByName('gananciaTotal') || 0);
 
+// Poner valores
 document.getElementById("walletOnly").textContent = wallet;
-document.getElementById('invertido').textContent = invertido + " USDT";
-document.getElementById('retirado').textContent = retirado + " USDT";
-document.getElementById('pendiente').textContent = pendiente + " USDT";
-document.getElementById('gananciasSem').textContent = gananciasSem + " USDT";
-document.getElementById('gananciasRef').textContent = gananciasRef + " USDT";
-document.getElementById('bonoAdmin').textContent = bonoAdmin + " USDT";
-document.getElementById('gananciaTotal').textContent = gananciaTotal + " USDT";
-
-// Copiar wallet
-function copyWallet() {
-    const btn = document.getElementById('copyBtn');
-    // Intentamos copiar la wallet
-    navigator.clipboard.writeText(wallet).then(() => {
-        // Si se copia correctamente, cambiamos texto
-        btn.textContent = '✅ Copiado';
-        setTimeout(() => { btn.textContent = '🔗 Compartir Wallet'; }, 1500);
-    }).catch(() => {
-        // Si falla, solo damos feedback visual, sin alert
-        btn.textContent = '⚠️🔗 Intenta manualmente';
-        setTimeout(() => { btn.textContent = '🔗 Compartir Wallet'; }, 1500);
-    });
+function animateValue(id,end,duration=1000){
+  const obj=document.getElementById(id);
+  let start=0;
+  const stepTime=Math.abs(Math.floor(duration/end));
+  const timer=setInterval(()=>{
+    start++;
+    obj.textContent=start+" USDT";
+    if(start>=end) clearInterval(timer);
+  },stepTime);
 }
+animateValue('invertido',invertido);
+animateValue('retirado',retirado);
+animateValue('pendiente',pendiente);
+animateValue('gananciasSem',gananciasSem);
+animateValue('gananciasRef',gananciasRef);
+animateValue('bonoAdmin',bonoAdmin);
+animateValue('gananciaTotal',gananciaTotal);
 
+// Tooltip copy wallet
+function showTooltip() {
+  const tooltip=document.getElementById('copyTooltip');
+  tooltip.style.opacity=1;
+  tooltip.style.transform="translateY(-30px)";
+  setTimeout(()=>{
+    tooltip.style.opacity=0;
+    tooltip.style.transform="translateY(0)";
+  },1500);
+}
+function copyWallet(){
+  navigator.clipboard.writeText(wallet).then(()=>{
+    showTooltip();
+  }).catch(()=>{
+    showTooltip();
+  });
+}
+document.getElementById('copyBtn').addEventListener('click',copyWallet);
+document.getElementById('walletOnly').addEventListener('click',copyWallet);
 
-document.getElementById('copyBtn').addEventListener('click', copyWallet);
-document.getElementById("walletOnly").addEventListener('click', copyWallet);
+// Exit con fade
+document.getElementById('btnExit').addEventListener('click',()=>{
+  document.querySelector('.container').style.opacity=0;
+  setTimeout(()=>tg.close(),300);
+});
 
-// Salir de la MiniApp
-document.getElementById('btnExit').addEventListener('click', () => tg.close());
-
-// Expandir MiniApp al abrir
+// Expandir Mini App
 tg.expand();
-</script>
 
+// Slogan animado
+const slogans=["🚀 Tu inversión, tu control","📊 Todo en tiempo real"];
+let idx=0;
+const sloganEl=document.querySelector('.slogan');
+setInterval(()=>{
+  sloganEl.style.opacity=0;
+  setTimeout(()=>{
+    sloganEl.textContent=slogans[idx%2];
+    sloganEl.style.opacity=1;
+    idx++;
+  },400);
+},4000);
+
+// Fade sections
+const sections=document.querySelectorAll('.section-anim');
+sections.forEach(sec=>sec.classList.add('visible'));
+</script>
 </body>
 </html>
-
-
-
-
-
-
-
