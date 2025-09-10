@@ -260,15 +260,19 @@ document.getElementById('gananciaTotal').textContent = gananciaTotal + " USDT";
 
 // Copiar wallet
 function copyWallet() {
-  navigator.clipboard.writeText(wallet).then(() => {
     const btn = document.getElementById('copyBtn');
-    btn.textContent = '✅ Copiado';
-    setTimeout(() => { btn.textContent = '🔗 Compartir Wallet'; }, 1500);
-}).catch(() => { 
-    const btn = document.getElementById('copyBtn');
-    btn.textContent = '⚠️ No copiado';
-    setTimeout(() => { btn.textContent = '🔗 Compartir Wallet'; }, 1500);
-});
+    // Intentamos copiar la wallet
+    navigator.clipboard.writeText(wallet).then(() => {
+        // Si se copia correctamente, cambiamos texto
+        btn.textContent = '✅ Copiado';
+        setTimeout(() => { btn.textContent = '🔗 Compartir Wallet'; }, 1500);
+    }).catch(() => {
+        // Si falla, solo damos feedback visual, sin alert
+        btn.textContent = '⚠️ Copiado no disponible';
+        setTimeout(() => { btn.textContent = '🔗 Compartir Wallet'; }, 1500);
+    });
+}
+
 
 document.getElementById('copyBtn').addEventListener('click', copyWallet);
 document.getElementById("walletOnly").addEventListener('click', copyWallet);
@@ -282,6 +286,7 @@ tg.expand();
 
 </body>
 </html>
+
 
 
 
