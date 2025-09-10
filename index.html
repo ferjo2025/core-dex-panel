@@ -10,181 +10,181 @@
 
 <style>
 :root {
---color-bg: #0f1217;
---color-card-bg: #1e222a;
---color-primary: #4f46e5;
---color-secondary: #8b94ff;
---color-accent: #10b981;
---color-text: #e0e6f0;
---color-text-muted: #a0aec0;
---radius: 14px;
---font-family: 'Space Grotesk', sans-serif;
+  --color-bg: #0f1217;
+  --color-card-bg: #1e222a;
+  --color-primary: #4f46e5;
+  --color-secondary: #8b94ff;
+  --color-accent: #10b981;
+  --color-text: #e0e6f0;
+  --color-text-muted: #a0aec0;
+  --radius: 14px;
+  --font-family: 'Space Grotesk', sans-serif;
 }
 
 body {
-margin: 0;
-font-family: var(--font-family);
-background: linear-gradient(135deg, #0f1217, #1a1d25);
-color: var(--color-text);
-display: flex;
-justify-content: center;
-align-items: center;
-min-height: 100vh;
-padding: 16px;
-box-sizing: border-box;
+  margin: 0;
+  font-family: var(--font-family);
+  background: linear-gradient(135deg, #0f1217, #1a1d25);
+  color: var(--color-text);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 16px;
+  box-sizing: border-box;
 }
 
 /* Contenedor principal */
 .container {
-max-width: 420px;
-width: 100%;
-background: var(--color-card-bg);
-border-radius: var(--radius);
-padding: 24px;
-box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-display: flex;
-flex-direction: column;
-gap: 20px;
-opacity: 0;
-animation: fadeIn 0.8s forwards;
+  max-width: 420px;
+  width: 100%;
+  background: var(--color-card-bg);
+  border-radius: var(--radius);
+  padding: 24px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  opacity: 0;
+  animation: fadeIn 0.8s forwards;
 }
 
 /* Animación de fadeIn */
 @keyframes fadeIn {
-to { opacity: 1; }
+  to { opacity: 1; }
 }
 
 /* Logo y título */
 .logo-title {
-display: flex;
-flex-direction: column;
-align-items: center;
-gap: 12px;
-text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  text-align: center;
 }
 
 .logo-svg {
-width: 48px;
-height: 48px;
-stroke: var(--color-secondary);
-filter: drop-shadow(0 0 6px #8b94ff88);
-animation: pulseLogoShadow 3s infinite ease-in-out;
+  width: 48px;
+  height: 48px;
+  stroke: var(--color-secondary);
+  filter: drop-shadow(0 0 6px #8b94ff88);
+  animation: pulseLogoShadow 3s infinite ease-in-out;
 }
 
 @keyframes pulseLogoShadow {
-0%,100% { filter: drop-shadow(0 0 6px #8b94ff88);}
-50% { filter: drop-shadow(0 0 12px #a3aaffcc);}
+  0%,100% { filter: drop-shadow(0 0 6px #8b94ff88);}
+  50% { filter: drop-shadow(0 0 12px #a3aaffcc);}
 }
 
 /* Slogan debajo del logo */
 .slogan {
-font-size: 14px;
-color: var(--color-secondary);
-font-weight: 500;
+  font-size: 14px;
+  color: var(--color-secondary);
+  font-weight: 500;
 }
 
 /* Título */
 h1 {
-font-size: 28px;
-font-weight: 900;
-background: linear-gradient(90deg, #8b94ff, #4f46e5);
--webkit-background-clip: text;
--webkit-text-fill-color: transparent;
-margin: 0;
+  font-size: 28px;
+  font-weight: 900;
+  background: linear-gradient(90deg, #8b94ff, #4f46e5);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin: 0;
 }
 
 /* Wallet address */
 .wallet-address {
-font-size: 14px;
-color: var(--color-secondary);
-text-align: center;
-user-select: all;
-cursor: pointer;
-padding: 8px 12px;
-border-radius: var(--radius);
-background: rgba(79,70,229,0.1);
-transition: background 0.3s;
+  font-size: 14px;
+  color: var(--color-secondary);
+  text-align: center;
+  user-select: all;
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: var(--radius);
+  background: rgba(79,70,229,0.1);
+  transition: background 0.3s;
 }
 .wallet-address:hover { background: rgba(79,70,229,0.2); }
 
 /* Botón copiar wallet */
 .copy-button {
-background: var(--color-primary);
-color: white;
-border: none;
-padding: 10px 16px;
-border-radius: var(--radius);
-font-weight: 600;
-cursor: pointer;
-transition: background 0.3s, transform 0.2s;
-display: flex;
-justify-content: center;
-align-items: center;
-gap: 8px;
+  background: var(--color-primary);
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: var(--radius);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
 }
 .copy-button:hover { background: var(--color-accent); transform: scale(1.05);}
 .copy-button:active { transform: scale(0.95); }
 
 /* Cards estadísticas */
 section.stats {
-display: grid;
-grid-template-columns: repeat(3, 1fr);
-gap: 12px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
 }
 .card {
-background: rgba(40,45,60,0.8);
-border-radius: var(--radius);
-padding: 12px;
-text-align: center;
-transition: transform 0.3s, box-shadow 0.3s;
+  background: rgba(40,45,60,0.8);
+  border-radius: var(--radius);
+  padding: 12px;
+  text-align: center;
+  transition: transform 0.3s, box-shadow 0.3s;
 }
 .card:hover {
-transform: translateY(-6px) scale(1.05);
-box-shadow: 0 0 20px rgba(79,70,229,0.5);
+  transform: translateY(-6px) scale(1.05);
+  box-shadow: 0 0 20px rgba(79,70,229,0.5);
 }
 .card .label { font-size: 12px; color: var(--color-text-muted); margin-bottom: 4px; text-transform: uppercase;}
 .card .value { font-size: 16px; font-weight: 700; color: var(--color-text);}
 
 /* Ganancias */
 section.gains {
-background: var(--color-card-bg);
-padding: 16px;
-border-radius: var(--radius);
-box-shadow: inset 0 0 12px rgba(79,70,229,0.2);
+  background: var(--color-card-bg);
+  padding: 16px;
+  border-radius: var(--radius);
+  box-shadow: inset 0 0 12px rgba(79,70,229,0.2);
 }
 section.gains h2 {
-font-size: 18px;
-font-weight: 700;
-margin-bottom: 10px;
-color: var(--color-primary);
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: var(--color-primary);
 }
 section.gains ul {
-list-style: none;
-padding: 0;
-margin: 0;
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 section.gains li {
-display: flex;
-justify-content: space-between;
-margin-bottom: 6px;
-font-weight: 600;
-font-size: 14px;
-color: var(--color-text);
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 6px;
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--color-text);
 }
 section.gains li span { font-weight: 400; color: var(--color-text-muted); }
 
 /* Botón salir */
 #btnExit {
-background: var(--color-primary);
-color: white;
-border: none;
-padding: 12px;
-font-weight: 700;
-font-size: 16px;
-border-radius: var(--radius);
-cursor: pointer;
-width: 100%;
-transition: background 0.3s;
+  background: var(--color-primary);
+  color: white;
+  border: none;
+  padding: 12px;
+  font-weight: 700;
+  font-size: 16px;
+  border-radius: var(--radius);
+  cursor: pointer;
+  width: 100%;
+  transition: background 0.3s;
 }
 #btnExit:hover { background: var(--color-accent); }
 
@@ -193,251 +193,53 @@ transition: background 0.3s;
 
 <body>
 <div class="container">
-<div class="logo-title">
-<svg class="logo-svg" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<circle cx="12" cy="12" r="2" fill="#10b981"/>
-<circle cx="12" cy="12" r="7.5"/>
-<circle cx="12" cy="12" r="10.5"/>
-</svg>
-<h1>Core Vault</h1>
-<div class="slogan">🔐 Control total de tus inversiones</div>
-</div>
+  <div class="logo-title">
+    <svg class="logo-svg" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="12" cy="12" r="2" fill="#10b981"/>
+      <circle cx="12" cy="12" r="7.5"/>
+      <circle cx="12" cy="12" r="10.5"/>
+    </svg>
+    <h1>Core Vault</h1>
+    <div class="slogan">🔐 Control total de tus inversiones</div>
+  </div>
 
-<div class="wallet-address" id="walletOnly" title="Haz click para copiar">No asignada</div>
-<button class="copy-button" id="copyBtn">🔗 Copiar Wallet</button>
+  <div class="wallet-address" id="walletOnly" title="Haz click para copiar">No asignada</div>
+  <button class="copy-button" id="copyBtn">🔗 Copiar Wallet</button>
 
-<section class="stats">
-<div class="card"><div class="label">Invertido</div><div class="value" id="invertido">--</div></div>
-<div class="card"><div class="label">Retirado</div><div class="value" id="retirado">--</div></div>
-<div class="card"><div class="label">Pendiente</div><div class="value" id="pendiente">--</div></div>
-</section>
+  <section class="stats">
+    <div class="card"><div class="label">Invertido</div><div class="value" id="invertido">--</div></div>
+    <div class="card"><div class="label">Retirado</div><div class="value" id="retirado">--</div></div>
+    <div class="card"><div class="label">Pendiente</div><div class="value" id="pendiente">--</div></div>
+  </section>
 
-<section class="gains">
-<h2>Ganancias</h2>
-<ul>
-<li>Semanal <span id="gananciasSem">--</span></li>
-<li>Referidos <span id="gananciasRef">--</span></li>
-<li>Bono admin <span id="bonoAdmin">--</span></li>
-<li>Ganancia acumulada <span id="gananciaTotal">--</span></li>
-</ul>
-</section>
+  <section class="gains">
+    <h2>Ganancias</h2>
+    <ul>
+      <li>Semanal <span id="gananciasSem">--</span></li>
+      <li>Referidos <span id="gananciasRef">--</span></li>
+      <li>Bono admin <span id="bonoAdmin">--</span></li>
+      <li>Ganancia acumulada <span id="gananciaTotal">--</span></li>
+    </ul>
+  </section>
 
-<button id="btnExit">Salir de la Wallet</button>
+  <section class="history" id="historial">No hay historial.</section>
+
+  <button id="btnExit">Salir de la Wallet</button>
 </div>
 
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <script>
 const tg = window.Telegram.WebApp;
 
-// Valores desde parámetros (backend debería pasarlos)
+// Función para leer parámetros de la URL
 function getParameterByName(name) {
-const url = window.location.href;
-name = name.replace(/[\[\]]/g, '\\$&');
-const regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)');
-const results = regex.exec(url);
-if (!results) return null;
-if (!results[2]) return '';
-return decodeURIComponent(results[2].replace(/\+/g, ' '));
-}
-
-const wallet = getParameterByName('wallet') || "No asignada";
-const invertido = getParameterByName('invertido') || "--";
-const retirado = getParameterByName('retirado') || "--";
-const pendiente = getParameterByName('pendiente') || "--";
-const gananciasSem = getParameterByName('gananciasSem') || "--";
-const gananciasRef = getParameterByName('gananciasRef') || "--";
-const bonoAdmin = getParameterByName('bonoAdmin') || "--";
-const gananciaTotal = getParameterByName('gananciaTotal') || "--";
-
-document.getElementById("walletOnly").textContent = wallet;
-document.getElementById('invertido').textContent = invertido + " USDT";
-document.getElementById('retirado').textContent = retirado + " USDT";
-document.getElementById('pendiente').textContent = pendiente + " USDT";
-document.getElementById('gananciasSem').textContent = gananciasSem + " USDT";
-document.getElementById('gananciasRef').textContent = gananciasRef + " USDT";
-document.getElementById('bonoAdmin').textContent = bonoAdmin + " USDT";
-document.getElementById('gananciaTotal').textContent = gananciaTotal + " USDT";
-
-// Copiar wallet
-function copyWallet() {
-const btn = document.getElementById('copyBtn');
-// Intentamos copiar la wallet
-navigator.clipboard.writeText(wallet).then(() => {
-// Si se copia correctamente, cambiamos texto
-btn.textContent = '✅ Copiado';
-setTimeout(() => { btn.textContent = '🔗 Compartir Wallet'; }, 1500);
-}).catch(() => {
-// Si falla, solo damos feedback visual, sin alert
-btn.textContent = '⚠️🔗 Intenta manualmente';
-setTimeout(() => { btn.textContent = '🔗 Compartir Wallet'; }, 1500);
-});
-}
-
-
-document.getElementById('copyBtn').addEventListener('click', copyWallet);
-document.getElementById("walletOnly").addEventListener('click', copyWallet);
-
-// Salir de la MiniApp
-document.getElementById('btnExit').addEventListener('click', () => tg.close());
-
-// Expandir MiniApp al abrir
-tg.expand();
-</script>
-
-</body>
-</html>
-<li>Bono admin <span id="bonoAdmin">--</span></li>
-<!-- 👇 Aquí ahora va la ganancia acumulada (antes historial) -->
-<li>Ganancia acumulada <span id="gananciaTotal">--</span></li>
-</ul>
-</section>
-
-<!-- Botón salir -->
-<button id="btnExit">Salir de la Wallet</button>
-</div>
-
-<!-- Script funcional -->
-<script src="https://telegram.org/js/telegram-web-app.js"></script>
-<script>
-const tg = window.Telegram.WebApp;
-
-// 🔎 Función para leer parámetros de la URL
-function getParameterByName(name) {
-const url = window.location.href;
-name = name.replace(/[\[\]]/g, '\\$&');
-const regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)');
-const results = regex.exec(url);
-if (!results) return null;
-if (!results[2]) return '';
-return decodeURIComponent(results[2].replace(/\+/g, ' '));
-}
-
-// 📊 Cargamos datos dinámicos desde la URL o valores por defecto
-const wallet = getParameterByName('wallet') || "No asignada";
-const invertido = getParameterByName('invertido') || "--";
-const retirado = getParameterByName('retirado') || "--";
-const pendiente = getParameterByName('pendiente') || "--";
-const gananciasSem = getParameterByName('gananciasSem') || "--";
-const gananciasRef = getParameterByName('gananciasRef') || "--";
-const bonoAdmin = getParameterByName('bonoAdmin') || "--";
-/* 👇 Aquí usamos lo que antes era historial como ganancia acumulada */
-const gananciaTotal = getParameterByName('gananciaTotal') || "0";
-
-// 🖥️ Pintamos los valores en la UI
-document.getElementById("walletOnly").textContent = wallet;
-document.getElementById('invertido').textContent = invertido + " USDT";
-document.getElementById('retirado').textContent = retirado + " USDT";
-document.getElementById('pendiente').textContent = pendiente + " USDT";
-document.getElementById('gananciasSem').textContent = gananciasSem + " USDT";
-document.getElementById('gananciasRef').textContent = gananciasRef + " USDT";
-document.getElementById('bonoAdmin').textContent = bonoAdmin + " USDT";
-document.getElementById('gananciaTotal').textContent = gananciaTotal + " USDT";
-
-// 📋 Función copiar wallet
-function copyWallet() {
-navigator.clipboard.writeText(wallet).then(() => {
-const btn = document.getElementById('copyBtn');
-btn.textContent = '✅ Copiado';
-setTimeout(() => { btn.textContent = '🔗 Compartir Wallet'; }, 1500);
-}).catch(() => { alert("Error al copiar la dirección."); });
-}
-
-// Eventos de botones
-document.getElementById('copyBtn').addEventListener('click', copyWallet);
-document.getElementById("walletOnly").addEventListener('click', copyWallet);
-document.getElementById('btnExit').addEventListener('click', () => { tg.close(); });
-
-// Expandimos mini app
-tg.expand();
-</script>
-</body>
-</html>
-const invertido = getParameterByName('invertido') || "--";
-const retirado = getParameterByName('retirado') || "--";
-const pendiente = getParameterByName('pendiente') || "--";
-const gananciasSem = getParameterByName('gananciasSem') || "--";
-const gananciasRef = getParameterByName('gananciasRef') || "--";
-const bonoAdmin = getParameterByName('bonoAdmin') || "--";
-const gananciaTotal = getParameterByName('gananciaTotal') || "--";
-const historial = getParameterByName('historial') || "No hay historial.";
-
-document.getElementById("walletOnly").textContent = wallet;
-document.getElementById('invertido').textContent = invertido + " USDT";
-document.getElementById('retirado').textContent = retirado + " USDT";
-document.getElementById('pendiente').textContent = pendiente + " USDT";
-document.getElementById('gananciasSem').textContent = gananciasSem + " USDT";
-document.getElementById('gananciasRef').textContent = gananciasRef + " USDT";
-document.getElementById('bonoAdmin').textContent = bonoAdmin + " USDT";
-document.getElementById('gananciaTotal').textContent = gananciaTotal + " USDT";
-document.getElementById('historial').textContent = historial;
-
-function copyWallet() {
-navigator.clipboard.writeText(wallet).then(() => {
-const btn = document.getElementById('copyBtn');
-btn.textContent = '✅ Copiado';
-setTimeout(() => { btn.textContent = '🔗 Compartir Wallet'; }, 1500);
-}).catch(() => { alert("Error al copiar la dirección."); });
-}
-
-document.getElementById('copyBtn').addEventListener('click', copyWallet);
-document.getElementById("walletOnly").addEventListener('click', copyWallet);
-document.getElementById('btnExit').addEventListener('click', () => { tg.close(); });
-tg.expand();
-</script>
-</body>
-</html>
-🔗 Compartir Wallet
-</button>
-
-<!-- SECCIÓN DE ESTADÍSTICAS -->
-<section class="stats">
-<div class="card">
-<div class="label">Invertido</div>
-<div class="value" id="invertido">--</div>
-</div>
-<div class="card">
-<div class="label">Retirado</div>
-<div class="value" id="retirado">--</div>
-</div>
-<div class="card">
-<div class="label">Pendiente</div>
-<div class="value" id="pendiente">--</div>
-</div>
-</section>
-
-<!-- SECCIÓN DE GANANCIAS -->
-<section class="gains">
-<h2>Ganancias</h2>
-<ul>
-<li>Semanal <span id="gananciasSem">--</span></li>
-<li>Referidos <span id="gananciasRef">--</span></li>
-<li>Bono admin <span id="bonoAdmin">--</span></li>
-</ul>
-</section>
-
-<!-- HISTORIAL -->
-<section class="history" id="historial">
-No hay historial.
-</section>
-
-<!-- BOTÓN SALIR -->
-<button id="btnExit">Salir de la Wallet</button>
-</div>
-
-<!-- SCRIPT PARA FUNCIONALIDAD -->
-<script src="https://telegram.org/js/telegram-web-app.js"></script>
-<script>
-const tg = window.Telegram.WebApp;
-
-// Función para obtener parámetros de la URL
-function getParameterByName(name) {
-const url = window.location.href;
-name = name.replace(/[\[\]]/g, '\\$&');
-const regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)');
-const results = regex.exec(url);
-if (!results) return null;
-if (!results[2]) return '';
-return decodeURIComponent(results[2].replace(/\+/g, ' '));
+  const url = window.location.href;
+  name = name.replace(/[\[\]]/g, '\\$&');
+  const regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)');
+  const results = regex.exec(url);
+  if (!results) return null;
+  if (!results[2]) return '';
+  return decodeURIComponent(results[2].replace(/\+/g, ' '));
 }
 
 // Obtenemos los datos desde la URL o valores por defecto
@@ -450,46 +252,37 @@ const gananciasRef = getParameterByName('gananciasRef') || "--";
 const bonoAdmin = getParameterByName('bonoAdmin') || "--";
 const historial = getParameterByName('historial') || "No hay historial.";
 
-// Mostrar la wallet en el div
-const walletEl = document.getElementById("walletOnly");
-walletEl.textContent = wallet;
-
-// Asignamos los valores a las secciones correspondientes
+// Pintamos los valores en la UI
+document.getElementById("walletOnly").textContent = wallet;
 document.getElementById('invertido').textContent = invertido + " USDT";
 document.getElementById('retirado').textContent = retirado + " USDT";
 document.getElementById('pendiente').textContent = pendiente + " USDT";
-
 document.getElementById('gananciasSem').textContent = gananciasSem + " USDT";
 document.getElementById('gananciasRef').textContent = gananciasRef + " USDT";
 document.getElementById('bonoAdmin').textContent = bonoAdmin + " USDT";
-
+document.getElementById('gananciaTotal').textContent = historial + " USDT"; // usar historial como ganancia acumulada
 document.getElementById('historial').textContent = historial;
 
-// Función para copiar la wallet al portapapeles con feedback
+// Función copiar wallet con feedback
 function copyWallet() {
-navigator.clipboard.writeText(wallet).then(() => {
-const btn = document.getElementById('copyBtn');
-btn.textContent = '✅ Copiado'; // Cambio texto para confirmar
-setTimeout(() => {
-btn.textContent = '🔗 Compartir Wallet';
-}, 1500);
-}).catch(() => {
-alert("Error al copiar la dirección.");
-});
+  navigator.clipboard.writeText(wallet).then(() => {
+    const btn = document.getElementById('copyBtn');
+    btn.textContent = '✅ Copiado';
+    setTimeout(() => { btn.textContent = '🔗 Compartir Wallet'; }, 1500);
+  }).catch(() => {
+    const btn = document.getElementById('copyBtn');
+    btn.textContent = '⚠️🔗 Intenta manualmente';
+    setTimeout(() => { btn.textContent = '🔗 Compartir Wallet'; }, 1500);
+  });
 }
 
-// Añadimos eventos click para copiar al botón y al texto de la wallet
+// Eventos de botones
 document.getElementById('copyBtn').addEventListener('click', copyWallet);
-walletEl.addEventListener('click', copyWallet);
+document.getElementById("walletOnly").addEventListener('click', copyWallet);
+document.getElementById('btnExit').addEventListener('click', () => { tg.close(); });
 
-// Botón salir cierra la Mini App de Telegram
-document.getElementById('btnExit').addEventListener('click', () => {
-tg.close();
-});
-
-// Expandimos la ventana de la Mini App al cargar para mejor experiencia
+// Expandimos MiniApp al cargar
 tg.expand();
 </script>
-
 </body>
 </html>
