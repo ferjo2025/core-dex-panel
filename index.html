@@ -263,9 +263,12 @@ function copyWallet() {
   navigator.clipboard.writeText(wallet).then(() => {
     const btn = document.getElementById('copyBtn');
     btn.textContent = '✅ Copiado';
-    setTimeout(() => { btn.textContent = '🔗 Copiar Wallet'; }, 1500);
-  }).catch(() => { alert("Error al copiar la dirección."); });
-}
+    setTimeout(() => { btn.textContent = '🔗 Compartir Wallet'; }, 1500);
+}).catch(() => { 
+    const btn = document.getElementById('copyBtn');
+    btn.textContent = '⚠️ No copiado';
+    setTimeout(() => { btn.textContent = '🔗 Compartir Wallet'; }, 1500);
+});
 
 document.getElementById('copyBtn').addEventListener('click', copyWallet);
 document.getElementById("walletOnly").addEventListener('click', copyWallet);
@@ -279,6 +282,7 @@ tg.expand();
 
 </body>
 </html>
+
 
 
 
