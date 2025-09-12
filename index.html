@@ -222,8 +222,6 @@ section.gains li span { font-weight: 400; color: var(--color-text-muted); }
     </ul>
   </section>
 
-  <section class="history" id="historial">No hay historial.</section>
-
   <button id="btnExit">Salir de la Wallet</button>
 </div>
 
@@ -250,7 +248,7 @@ const pendiente = getParameterByName('pendiente') || "--";
 const gananciasSem = getParameterByName('gananciasSem') || "--";
 const gananciasRef = getParameterByName('gananciasRef') || "--";
 const bonoAdmin = getParameterByName('bonoAdmin') || "--";
-const historial = getParameterByName('historial') || "No hay historial.";
+const gananciaTotal = getParameterByName('gananciaTotal') || "0";
 
 // Pintamos los valores en la UI
 document.getElementById("walletOnly").textContent = wallet;
@@ -260,19 +258,18 @@ document.getElementById('pendiente').textContent = pendiente + " USDT";
 document.getElementById('gananciasSem').textContent = gananciasSem + " USDT";
 document.getElementById('gananciasRef').textContent = gananciasRef + " USDT";
 document.getElementById('bonoAdmin').textContent = bonoAdmin + " USDT";
-document.getElementById('gananciaTotal').textContent = historial + " USDT"; // usar historial como ganancia acumulada
-document.getElementById('historial').textContent = historial;
+document.getElementById('gananciaTotal').textContent = gananciaTotal + " USDT";
 
 // Función copiar wallet con feedback
 function copyWallet() {
   navigator.clipboard.writeText(wallet).then(() => {
     const btn = document.getElementById('copyBtn');
     btn.textContent = '✅ Copiado';
-    setTimeout(() => { btn.textContent = '🔗 Compartir Wallet'; }, 1500);
+    setTimeout(() => { btn.textContent = '🔗 Copiar Wallet'; }, 1500);
   }).catch(() => {
     const btn = document.getElementById('copyBtn');
-    btn.textContent = '⚠️🔗 Intenta manualmente';
-    setTimeout(() => { btn.textContent = '🔗 Compartir Wallet'; }, 1500);
+    btn.textContent = '⚠️ Intenta manualmente';
+    setTimeout(() => { btn.textContent = '🔗 Copiar Wallet'; }, 1500);
   });
 }
 
